@@ -1,9 +1,9 @@
 FSharp.GnuPlot
 ==============
 
-An F# wrapper for gnuplot charting library
+An F# wrapper for the gnuplot charting library
 
-Requires gnuplot: http://sourceforge.net/projects/gnuplot/files/
+Requires gnuplot to be installed separately: http://sourceforge.net/projects/gnuplot/files/
 
 The samples folder shows how to use it in F# interactive. To use it in a compiled F# project:
 * Copy src/gnuplot.fs into your project
