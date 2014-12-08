@@ -16,10 +16,10 @@ gp.Set(output = Output(X11, font="arial"))
 gp.Plot("sin(x)")
 
 // Draw plot using a single series of data
-gp.Plot(Series.Line [2.0; 1.0; 2.0; 5.0]) 
+gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0]) 
 
 // Specify additional properties of the series 
-gp.Plot(Series.Line( title="Some plot", lineColor = Color.OliveDrab, 
+gp.Plot(Series.Lines( title="Some plot", lineColor = Color.OliveDrab, 
                       weight = 3, data = [2.0; 1.0; 2.0; 5.0]) )
 
 // Histogram is another directly supported type of series                                            
@@ -30,7 +30,7 @@ gp.Plot(Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Soli
 gp.Plot
   [ Series.Function( "sin(x*3) + 3", title = "Sinus", 
                      lineColor = Color.Goldenrod, weight = 3)
-    Series.Line( [2.0; 1.0; 2.0; 5.0], title = "Some plot", 
+    Series.Lines( [2.0; 1.0; 2.0; 5.0], title = "Some plot", 
                   lineColor = Color.OliveDrab, weight = 3)
     Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Solid, 
                       lineColor = Color.SteelBlue, weight = 3) ]
@@ -45,7 +45,7 @@ gp.Plot(Series.TimeY( [(DateTime(1900,1,1),1.0);(DateTime(1950,1,1),2.0);(DateTi
 // Specify range of the plot using 'range' named parameter
 gp.Plot(
   range = RangeY.[-10.0 .. 10.0 ],
-  data = Series.Line [2.0; 1.0; 2.0; 5.0])  
+  data = Series.Lines [2.0; 1.0; 2.0; 5.0])  
 
 // Specify range and a style of a plot at once
 gp.Plot(

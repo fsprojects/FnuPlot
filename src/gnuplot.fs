@@ -148,7 +148,7 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
   member x.Command = cmd
 
   /// Creates a line data series for a plot  
-  static member Line(data, ?title, ?lineColor, ?weight) = 
+  static member Lines(data, ?title, ?lineColor, ?weight) = 
     Series("lines", DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates an XY data series for a plot  
   static member XY(data, ?title, ?lineColor, ?weight) = 
