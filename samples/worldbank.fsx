@@ -157,7 +157,7 @@ gp.Set(output = Output(X11, font="arial"))
 // Simple examples of working with gnuplot
 
 gp.Plot("sin(x)")
-gp.Plot(Series.Lines([3.0; 2.0; 4.0; 1.0;], title="Sample"))
+gp.Plot(Series.Line([3.0; 2.0; 4.0; 1.0;], title="Sample"))
 
 // Plot multiple histograms into a single plot
 

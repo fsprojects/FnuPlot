@@ -16,10 +16,10 @@ gp.Set(output = Output(X11, font="arial"))
 gp.Plot("sin(x)")
 
 // Draw plot using a single series of data
-gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0]) 
+gp.Plot(Series.Line [2.0; 1.0; 2.0; 5.0]) 
 
 // Specify additional properties of the series 
-gp.Plot(Series.Lines( title="Some plot", lineColor = Color.OliveDrab, 
+gp.Plot(Series.Line( title="Some plot", lineColor = Color.OliveDrab, 
                       weight = 3, data = [2.0; 1.0; 2.0; 5.0]) )
 
 // Histogram is another directly supported type of series                                            
@@ -30,15 +30,22 @@ gp.Plot(Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Soli
 gp.Plot
   [ Series.Function( "sin(x*3) + 3", title = "Sinus", 
                      lineColor = Color.Goldenrod, weight = 3)
-    Series.Lines( [2.0; 1.0; 2.0; 5.0], title = "Some plot", 
+    Series.Line( [2.0; 1.0; 2.0; 5.0], title = "Some plot", 
                   lineColor = Color.OliveDrab, weight = 3)
     Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Solid, 
                       lineColor = Color.SteelBlue, weight = 3) ]
 
+// Plot (x,y) pairs
+gp.Plot(Series.XY( [(0.0,1.0);(0.2,2.0);(2.0,1.5);(2.1,3.0)] , title = "Some xy plot"))
+
+// Plot a timeseries. (Note: this changes the x axis mode, so a time series cannot be plotted together with an xy plot)
+open System
+gp.Plot(Series.TimeY( [(DateTime(1900,1,1),1.0);(DateTime(1950,1,1),2.0);(DateTime(1980,1,21),1.5);(DateTime(2014,1,1),3.0)], title = "Some time series" ))
+
 // Specify range of the plot using 'range' named parameter
 gp.Plot(
   range = RangeY.[-10.0 .. 10.0 ],
-  data = Series.Lines [2.0; 1.0; 2.0; 5.0])  
+  data = Series.Line [2.0; 1.0; 2.0; 5.0])  
 
 // Specify range and a style of a plot at once
 gp.Plot(
