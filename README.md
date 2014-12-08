@@ -10,6 +10,7 @@ The samples folder shows how to use it in F# interactive. To use it in a compile
 * Create a plot like this:
 
 ```fsharp
+open FSharp.GnuPlot
 let gp = new GnuPlot()
 gp.Plot(Series.XY( [(0.0,1.0);(0.2,2.0);(2.0,1.5);(2.1,3.0)] , title = "Some xy plot"))
 ```
