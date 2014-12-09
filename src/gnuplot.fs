@@ -59,8 +59,8 @@ module Internal =
   /// Type that represents a range for a plot (this type is not
   /// intended to be constructed directly - use 'Range.[ ... ]` instead)
   type Range(?xspec, ?yspec) = 
-    let xspec = formatArg (sprintf "set xrange %s\n") xspec
-    let yspec = formatArg (sprintf "set yrange %s\n") yspec
+    let xspec = sprintf "set xrange %s\n" (defaultArg xspec "[:]")
+    let yspec = sprintf "set yrange %s\n" (defaultArg yspec "[:]")
     interface ICommand with 
       member x.Command = xspec + yspec
       member x.Cleanup = "set autoscale xy" 
@@ -117,6 +117,7 @@ module InternalFormat =
           yield sprintf "\"%s\" %d" t n ]
       |> String.concat ", " 
     sprintf "set %s (%s)" tics titles )
+  let formatTimeForXaxis = formatArg (sprintf "set timefmt \"%s\" \nset xdata time")
      
 open InternalFormat
 
@@ -124,8 +125,10 @@ open InternalFormat
 /// For most of the types, we use 'Data', 'Function' is used
 /// when specifying function as a string
 type Data = 
-  | Data of list<float>
-  | Function of string
+  | DataY of float seq //sequence index is x, the data is y.
+  | DataXY of (float*float) seq  //the first element is x, the second is y.
+  | DataTimeY of (DateTime*float) seq //the DateTime determines the position on the x axis. The float is y. This cannot be mixed with the other Data type options such as DataXY.
+  | Function of string //a string holding a function of x in gnuplot format, e.g. "sin(x)". The range of x comes from the other Data series on the plot, or from the optional Range object
   
 /// Represents a series of data for the 'plot' function
 /// The type can be constructed directly (by setting 'plot' parameter
@@ -134,7 +137,8 @@ type Data =
 type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) = 
   let cmd = 
     (match data with 
-     | Data _ -> " '-' using 1 with " + plot
+     | DataY _ -> " '-' using 1 with " + plot
+     | DataXY _ | DataTimeY _ -> " '-' using 1:2 with " + plot
      | Function f -> f)
       + (formatTitle title) 
       + (formatNumArg "lw" weight)
@@ -143,12 +147,17 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
   member x.Data = data
   member x.Command = cmd
 
-  /// Creates a lines data series for a plot  
+  /// Creates a line data series for a plot  
   static member Lines(data, ?title, ?lineColor, ?weight) = 
-    Series("lines", Data data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+    Series("lines", DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates an XY data series for a plot  
+  static member XY(data, ?title, ?lineColor, ?weight) = 
+    Series("lines", DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  static member TimeY(data, ?title, ?lineColor, ?weight) = 
+    Series("lines", DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates a histogram data series for a plot  
   static member Histogram(data, ?title, ?lineColor, ?weight, ?fill) = 
-    Series("histogram", Data data, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
+    Series("histogram", DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
   /// Creates a series specified as a function
   static member Function(func, ?title, ?lineColor, ?weight, ?fill) = 
     Series("", Function func, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
@@ -201,7 +210,29 @@ type Titles(?x, ?xrotate, ?y, ?yrotate) =
       cmd |> List.map fst |> String.concat "\n"
     member x.Cleanup =
       cmd |> List.map snd |> String.concat "\n"
-      
+
+
+/// Used to specify datetime format for the x and y axes, if they contain time data.
+/// "format" is a gnuplot time format; see http://gnuplot.sourceforge.net/docs_4.2/node274.html
+type TimeFmtX(?format) = 
+  let cmd =
+    [ formatTimeForXaxis format , "set xdata"]
+    |> List.filter (fun (s, _) -> s <> "")
+  interface ICommand with
+    member x.Command = 
+      cmd |> List.map fst |> String.concat "\n"
+    member x.Cleanup =
+      cmd |> List.map snd |> String.concat "\n"
+
+
+
+//the below two values control Gnuplot's display of DateTimes. They must match.
+[<AutoOpen>]
+module timeFormatting = 
+    let selectedTimeGnuplotFormat = """%d-%b-%Y-%H:%M:%S""" //format that Gnuplot will expect. see http://gnuplot.sourceforge.net/docs_4.2/node274.html
+    let dateTimeToSelectedGnuplotFormat (t:DateTime) = t.ToString("dd-MMM-yyyy-HH:mm:ss") //converts a DateTime to a string in the above format. See http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+
+
 // ----------------------------------------------------------------------------
 // The main type that wraps the gnuplot process
 // ----------------------------------------------------------------------------
@@ -227,12 +258,18 @@ type GnuPlot(?path) =
        RedirectStandardError = true, CreateNoWindow = true, 
        RedirectStandardOutput = true, RedirectStandardInput = true) 
     |> Process.Start
+  
+
+  [<Literal>]
+  let DEBUGGING = false
 
   // Provide event for reading gnuplot messages
   let msgEvent = 
     Event.merge gp.OutputDataReceived gp.ErrorDataReceived
       |> Event.map (fun de -> de.Data)
   do 
+    if DEBUGGING then
+        msgEvent.Add (fun output -> System.Diagnostics.Debug.Print(output + "\n"))
     gp.BeginOutputReadLine()  
     gp.BeginErrorReadLine()
     gp.EnableRaisingEvents <- true
@@ -240,6 +277,10 @@ type GnuPlot(?path) =
   // Send command to gnuplot process
   let sendCommand(str:string) =
     gp.StandardInput.Write(str + "\n")
+    if DEBUGGING then
+        System.Diagnostics.Debug.Print (">>" + str + "\n")
+
+  
 
   // We want to dipose of the running process when the wrapper is disposed
   // The followign bits implement proper 'disposal' pattern
@@ -258,9 +299,17 @@ type GnuPlot(?path) =
   // Write data to the gnuplot command line
   member private x.WriteData(data:Data) = 
     match data with 
-    | Data data ->
-      for f in data do 
-        x.SendCommand(string f)
+    | DataY data ->
+      for yPt in data do 
+        x.SendCommand(string yPt)
+      x.SendCommand("e")
+    | DataXY data ->
+      for (xPt,yPt) in data do 
+        x.SendCommand((string xPt) + " " + (string yPt))
+      x.SendCommand("e")
+    | DataTimeY data ->
+      for (timePt,yPt) in data do 
+        x.SendCommand( (dateTimeToSelectedGnuplotFormat timePt) + " " + (string yPt))
       x.SendCommand("e")
     | _ -> ()
     
@@ -278,8 +327,8 @@ type GnuPlot(?path) =
   ///   // set the X range of the output plot to [-10:]
   ///   gp.Set(range = RangeX.[-10.0 .. ]
   ///
-  member x.Set(?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles) = 
-    let commands = List.concat [ commandList output; commandList style; commandList range; commandList titles ]
+  member x.Set(?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles, ?timeFmtX:TimeFmtX) = 
+    let commands = List.concat [ commandList output; commandList style; commandList range; commandList titles ; commandList timeFmtX]
     for cmd in commands do
       //printfn "Setting:\n%s" cmd.Command
       x.SendCommand(cmd.Command)
@@ -317,14 +366,24 @@ type GnuPlot(?path) =
   ///    [ Series.Lines(title="Lines", data=[2.0; 1.0; 2.0; 5.0])
   ///      Series.Histogram(fill=Solid, data=[2.0; 1.0; 2.0; 5.0]) ]
   ///    
+
   member x.Plot(data:seq<Series>, ?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles) = 
-    x.Set(?style=style, ?range=range, ?output=output, ?titles=titles)
+    //Set up the plot format. 
+    match (Seq.head data).Data with
+        | DataTimeY _ ->    //Plotting time ranges requires special setup of the time format
+                            let timeFmt = Some (TimeFmtX(selectedTimeGnuplotFormat))
+                            x.Set(?style=style, ?range=range, ?output=output, ?titles=titles, ?timeFmtX = timeFmt)
+        | _ ->  //normal non-time plot
+                x.Set(?style=style, ?range=range, ?output=output, ?titles=titles)
+    
+    //plot each Series
     let cmd = 
       "plot \\\n" +
       ( [ for s in data -> s.Command ]
         |> String.concat ", \\\n" )
-    //printfn "Command:\n%s" cmd
     x.SendCommand(cmd)
     for s in data do
       x.WriteData(s.Data)
+    //undo plot format setup
     x.Unset(?style=style, ?range=range)
+

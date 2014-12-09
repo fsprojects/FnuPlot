@@ -35,6 +35,13 @@ gp.Plot
     Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Solid, 
                       lineColor = Color.SteelBlue, weight = 3) ]
 
+// Plot (x,y) pairs
+gp.Plot(Series.XY( [(0.0,1.0);(0.2,2.0);(2.0,1.5);(2.1,3.0)] , title = "Some xy plot"))
+
+// Plot a timeseries. (Note: this changes the x axis mode, so a time series cannot be plotted together with an xy plot)
+open System
+gp.Plot(Series.TimeY( [(DateTime(1900,1,1),1.0);(DateTime(1950,1,1),2.0);(DateTime(1980,1,21),1.5);(DateTime(2014,1,1),3.0)], title = "Some time series" ))
+
 // Specify range of the plot using 'range' named parameter
 gp.Plot(
   range = RangeY.[-10.0 .. 10.0 ],
