@@ -1,12 +1,15 @@
-// ----------------------------------------------------------------------------
-// Example - demonstrates using gnuplot from F#
-// ----------------------------------------------------------------------------
-#load "../src/gnuplot.fs"
+(**
+Getting started with FnuPlot 
+============================
+*)
 
-open FSharp.GnuPlot
+#r "../../bin/FnuPlot.dll"
+open FnuPlot
 open System.Drawing
 
-// ----------------------------------------------------------------------------
+(**
+First
+*)
 
 // Create gnuplot process
 let gp = new GnuPlot()
@@ -15,6 +18,10 @@ gp.Set(output = Output(X11, font="arial"))
 // Draw a simple function specified as a string
 gp.Plot("sin(x)")
 
+(**
+Lines
+*)
+
 // Draw plot using a single series of data
 gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0]) 
 
@@ -22,9 +29,17 @@ gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])
 gp.Plot(Series.Lines( title="Some plot", lineColor = Color.OliveDrab, 
                       weight = 3, data = [2.0; 1.0; 2.0; 5.0]) )
 
+(**
+Histogram
+*)
+
 // Histogram is another directly supported type of series                                            
 gp.Plot(Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Solid, 
                           lineColor = Color.SteelBlue, weight = 3) )
+
+(**
+Combining
+*)
 
 // Plot multiple different series into a single plot
 gp.Plot
@@ -35,25 +50,45 @@ gp.Plot
     Series.Histogram( [2.0; 1.0; 2.0; 5.0], title = "Some plot", fill = Solid, 
                       lineColor = Color.SteelBlue, weight = 3) ]
 
+(**
+X Y pairs
+*)
+
 // Plot (x,y) pairs
 gp.Plot(Series.XY( [(0.0,1.0);(0.2,2.0);(2.0,1.5);(2.1,3.0)] , title = "Some xy plot"))
 
-// Plot a timeseries. (Note: this changes the x axis mode, so a time series cannot be plotted together with an xy plot)
+(**
+Time series
+*)
+
 open System
 gp.Plot(Series.TimeY( [(DateTime(1900,1,1),1.0);(DateTime(1950,1,1),2.0);(DateTime(1980,1,21),1.5);(DateTime(2014,1,1),3.0)], title = "Some time series" ))
 
-// Specify range of the plot using 'range' named parameter
+(**
+Specifying properties
+---------------------
+
+Specify range
+*)
+
 gp.Plot(
   range = RangeY.[-10.0 .. 10.0 ],
   data = Series.Lines [2.0; 1.0; 2.0; 5.0])  
 
-// Specify range and a style of a plot at once
+(**
+SPecify range and style
+*)
+
 gp.Plot(
   style = Style(fill=Solid),
   range = Range.[-0.5 .. 3.7, 0.0 .. 6.0],
   data = 
     [ Series.Histogram([2.0; 1.0; 2.0; 5.0], lineColor = Color.OliveDrab)
       Series.Histogram([1.5; 2.0; 2.5; 4.5], lineColor = Color.SteelBlue) ])
+
+(**
+COnfiguring things
+*)
 
 // We can also change global properties using the 'Set' method
 gp.Set(style = Style(fill = Solid), range = Range.[-0.5 .. 3.7, 0.0 .. 6.0])

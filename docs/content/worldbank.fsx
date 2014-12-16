@@ -1,7 +1,11 @@
-// ----------------------------------------------------------------------------
-// Real-World Functional Programming (Chapter 13)
-// ----------------------------------------------------------------------------
+(**
+Visualizng WorldBank data
+=========================
 
+Downloading data
+----------------
+
+*)
 #r "System.Xml.dll"
 #r "System.Xml.Linq.dll"
 
@@ -10,13 +14,12 @@ open System.Net
 open System.Web
 open System.Xml.Linq
 
-// ----------------------------------------------------------------------------
-// PART 1: Downloading data from the World Bank using REST API
-// ----------------------------------------------------------------------------
-
+(**
+Downloading data from the World Bank using REST API
+*)
 let worldBankDownload req args = async {
   let key = "hq8byg8k7t2fxc6hp7jmbx26"
-  let url = sprintf "http://open.worldbank.org/%s?per_page=100&api_key=%s%s" req key args
+  let url = sprintf "http://api.worldbank.org/%s?per_page=100&api_key=%s%s" req key args
   let req = HttpWebRequest.Create(url)
   let! resp = req.AsyncGetResponse()
   use response = resp
@@ -25,20 +28,22 @@ let worldBankDownload req args = async {
   let! res = reader.ReadToEndAsync() |> Async.AwaitTask
   return XDocument.Parse(res) }
 
-// ----------------------------------------------------------------------------
-// Working with data downloaded from the  World Bank interactively
+(**
+Working with data downloaded from the  World Bank interactively
+*)
 
 fsi.AddPrinter(fun (x:XContainer) ->
   let s = x.ToString()
   if s.Length < 1000 then s
   else s.Substring(0, 1000) + "..." )
 
-let doc = Async.RunSynchronously(worldBankDownload "countries" "&region=NA")
+let doc = Async.RunSynchronously(worldBankDownload "countries" "")
 
 let xn s = XName.Get(s)
 let xnw s = XName.Get(s, "http://www.worldbank.org")
-
-// Look at the first returned country
+(**
+Look at the first returned country
+*)
 
 let c = doc.Element(xnw "countries").Element(xnw "country")
 c.Attribute(xn "id").Value
@@ -49,9 +54,10 @@ let regions =
   [ for r in doc.Element(xnw "countries").Elements(xnw "country") do
       yield r.Element(xnw "name").Value ]
 
-// ----------------------------------------------------------------------------
-// PART 2: Downloading area covered by forests
-// ----------------------------------------------------------------------------
+(**
+Downloading area covered by forests
+-----------------------------------
+*)
 
 let rec getIndicatorData ind date page = async {
   let req = sprintf "countries/indicators/%s" ind 
@@ -75,7 +81,9 @@ let downloadAll =
           
 let alldata = Async.RunSynchronously(downloadAll)
 
-// ----------------------------------------------------------------------------
+(**
+more
+*)
 
 let readSingleValue (node:XElement) =
   let value = node.Element(xnw "value").Value
@@ -92,10 +100,10 @@ let readValues (data:list<XDocument>) =
 // Read values for the first loaded indicator
 alldata.[0] |> readValues
 
-// ----------------------------------------------------------------------------
-// PART 3: Converting input into structured data
-// ----------------------------------------------------------------------------
-
+(**
+Converting input into structured data
+-------------------------------------
+*)
 [<Measure>] type km
 [<Measure>] type percent
 
@@ -120,8 +128,9 @@ let calculateForests (area:float<km^2>) (forest:float<percent>) =
 // Run the calculation for sample input
 calculateForests 1000.0<km^2> 10.0<percent>
 
-// ----------------------------------------------------------------------------
-// Create list of data that can be visualized
+(**
+Create list of data that can be visualized
+*)
 
 let years = [| 1990; 2000; 2005 |]
 
@@ -142,32 +151,36 @@ let stats =
 
 // Get names of regions with available data
 let names = regions |> List.filter dataAvailable
-  
-// ----------------------------------------------------------------------------
-// PART 4: Drawing plots 
-// ----------------------------------------------------------------------------
+(**
+Drawing plots 
+-------------
+*)
 
-#load "../src/gnuplot.fs"
-open FSharp.GnuPlot
+#r "../../bin/FnuPlot.dll"
+open FnuPlot
 open System.Drawing
 
-let gp = new GnuPlot()
+let path = @"C:\Programs\Data\gnuplot\bin\gnuplot.exe"
+let gp = new GnuPlot(path)
 gp.Set(output = Output(X11, font="arial"))
 
-// Simple examples of working with gnuplot
+(**
+Simple examples of working with gnuplot
+*)
 
 gp.Plot("sin(x)")
 gp.Plot(Series.Lines([3.0; 2.0; 4.0; 1.0;], title="Sample"))
 
-// Plot multiple histograms into a single plot
-
+(**
+Plot multiple histograms into a single plot
+*)
 gp.Plot
   [ for year, values in stats ->
       Series.Histogram(data = (values |> List.map float)) ]
 
-
-// Set more properties of 'gnuplot'
-
+(**
+Set more properties of 'gnuplot'
+*)
 gp.Set
   ( output = Output(X11, font = "arial"),
     style = Style(Solid), 
@@ -182,4 +195,6 @@ gp.Plot
       Series.Histogram
         ( data = (values |> List.map float), 
           title = string y, lineColor = clr) ]
-
+(**
+yay
+*)

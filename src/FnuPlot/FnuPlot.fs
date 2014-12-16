@@ -2,7 +2,7 @@
 // GnuPlot.fs - Provides simple wrappers for calling gnuplot from F#
 // (c) Tomas Petricek (tomas@tomasp.net), MS-PL open-source license
 // ----------------------------------------------------------------------------
-namespace FSharp.GnuPlot
+namespace FnuPlot
 
 open System
 open System.Drawing
