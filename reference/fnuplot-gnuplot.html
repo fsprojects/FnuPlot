@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>GnuPlot - FnuPlot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Tomas Petricek"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FnuPlot/content/style.css" />
+    <script type="text/javascript" src="/FnuPlot/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>GnuPlot</h1>
+<div class="xmldoc">
+<p>Provides a wrapper for calling gnuplot from F#. Plots are drawn using
+the 'Plot' function and can be created using 'Series' type. For example:</p>
+
+<p>// Plot a function specified as a string
+  gp.Plot("sin(x)")</p>
+
+<p>// Create a simple line plot
+  gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])</p>
+
+<p>// Create a histogram plot drawn using blue color 
+  gp.Plot(Series.Histogram(lineColor=Color.Blue, data=[2.0; 1.0; 2.0; 5.0]))</p>
+</div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '31', 31)" onmouseover="showTip(event, '31', 31)">
+            new(path)
+          </code>
+          <div class="tip" id="31">
+            <strong>Signature:</strong> (path:string option) -&gt; GnuPlot<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L252-252" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+            Finalize()
+          </code>
+          <div class="tip" id="32">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L291-291" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
+            Plot(data, style, range, output, titles)
+          </code>
+          <div class="tip" id="33">
+            <strong>Signature:</strong> (data:seq&lt;Series&gt; * style:Style option * range:Range option * output:Output option * titles:Titles option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L370-370" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Draw a plot consisting of multiple data series. Range and 
+style can be specified using optional parameters. For example:</p>
+
+<p>// Create a simple line plot
+  gp.Plot
+   [ Series.Lines(title="Lines", data=[2.0; 1.0; 2.0; 5.0])
+     Series.Histogram(fill=Solid, data=[2.0; 1.0; 2.0; 5.0]) ]</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
+            Plot(data, style, range, output, titles)
+          </code>
+          <div class="tip" id="34">
+            <strong>Signature:</strong> (data:Series * style:Style option * range:Range option * output:Output option * titles:Titles option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L358-358" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Draw a plot of a single data series. Range and style can 
+be specified using optional parameters. For example:</p>
+
+<p>// Create a simple line plot
+  gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0],
+          range = RangeY.[-1.0 ..])</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+            Plot(func, style, range, output, titles)
+          </code>
+          <div class="tip" id="35">
+            <strong>Signature:</strong> (func:string * style:Style option * range:Range option * output:Output option * titles:Titles option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L348-348" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Draw a plot specified as a string. Range and style can
+be specified using optional parameters. For example:</p>
+
+<p>// draw sin(x) function
+ gp.Plot("sin(x)")</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
+            SendCommand(str)
+          </code>
+          <div class="tip" id="36">
+            <strong>Signature:</strong> str:string -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L320-320" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Send a string command directly to the gnuplot process</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
+            Set(...)
+          </code>
+          <div class="tip" id="37">
+            <strong>Signature:</strong> (style:Style option * range:Range option * output:Output option * titles:Titles option * timeFmtX:TimeFmtX option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L330-330" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Set a style or a range of the gnuplot session. For example</p>
+
+<p>// set fill style to a numbered pattern
+  gp.Set(style = Style(fill = Pattern(3)))</p>
+
+<p>// set the X range of the output plot to [-10:]
+  gp.Set(range = RangeX.[-10.0 .. ]</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
+            Unset(style, range)
+          </code>
+          <div class="tip" id="38">
+            <strong>Signature:</strong> (style:Style option * range:Range option) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L337-337" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Reset style or range set previously (used mainly internally)</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FnuPlot</li>
+            <li><a href="/FnuPlot/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FnuPlot">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/FnuPlot">Source Code on GitHub</a></li>
+            <li><a href="/FnuPlot/license.html">License</a></li>
+            <li><a href="/FnuPlot/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FnuPlot/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/FnuPlot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

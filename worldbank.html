@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Visualizng WorldBank data
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An F# wrapper for the gnuplot charting library"/>
+    <meta name="author" content="Tomas Petricek"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FnuPlot/content/style.css" />
+    <script type="text/javascript" src="/FnuPlot/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>Visualizng WorldBank data</h1>
+
+<h2>Downloading data</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">System</span><span class="s">.</span><span class="s">Xml</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">System</span><span class="s">.</span><span class="s">Xml</span><span class="s">.</span><span class="s">Linq</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">IO</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Net</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">Web</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 7)" onmouseover="showTip(event, 'fs1', 7)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">Xml</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">Linq</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Downloading data from the World Bank using REST API</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">worldBankDownload</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">req</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">args</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">async</span> {
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">key</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">hq8byg8k7t2fxc6hp7jmbx26</span><span class="s">&quot;</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">url</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">api</span><span class="s">.</span><span class="s">worldbank</span><span class="s">.</span><span class="s">org</span><span class="s">/</span><span class="s">%</span><span class="s">s</span><span class="s">?</span><span class="s">per_page</span><span class="s">=</span><span class="s">100</span><span class="s">&amp;</span><span class="s">api_key</span><span class="s">=</span><span class="s">%</span><span class="s">s</span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs8', 17)" onmouseover="showTip(event, 'fs8', 17)" class="i">req</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="i">key</span> <span onmouseout="hideTip(event, 'fs9', 19)" onmouseover="showTip(event, 'fs9', 19)" class="i">args</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="i">req</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="i">HttpWebRequest</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="i">Create</span>(<span onmouseout="hideTip(event, 'fs12', 23)" onmouseover="showTip(event, 'fs12', 23)" class="i">url</span>)
+  <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs17', 24)" onmouseover="showTip(event, 'fs17', 24)" class="i">resp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="i">req</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">AsyncGetResponse</span>()
+  <span class="k">use</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">response</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 28)" onmouseover="showTip(event, 'fs17', 28)" class="i">resp</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="i">stream</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">response</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="i">GetResponseStream</span>()
+  <span class="k">use</span> <span onmouseout="hideTip(event, 'fs22', 32)" onmouseover="showTip(event, 'fs22', 32)" class="i">reader</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs23', 33)" onmouseover="showTip(event, 'fs23', 33)" class="i">StreamReader</span>(<span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="i">stream</span>)
+  <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs24', 35)" onmouseover="showTip(event, 'fs24', 35)" class="i">res</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="i">reader</span><span class="o">.</span><span class="i">ReadToEndAsync</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 37)" onmouseover="showTip(event, 'fs25', 37)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 38)" onmouseover="showTip(event, 'fs26', 38)" class="i">AwaitTask</span>
+  <span class="k">return</span> <span onmouseout="hideTip(event, 'fs27', 39)" onmouseover="showTip(event, 'fs27', 39)" class="i">XDocument</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 40)" onmouseover="showTip(event, 'fs28', 40)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs24', 41)" onmouseover="showTip(event, 'fs24', 41)" class="i">res</span>) }</pre>
+</td>
+</tr>
+</table>
+
+<p>Working with data downloaded from the  World Bank interactively</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs29', 42)" onmouseover="showTip(event, 'fs29', 42)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 43)" onmouseover="showTip(event, 'fs30', 43)" class="i">AddPrinter</span>(<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs31', 44)" onmouseover="showTip(event, 'fs31', 44)" class="i">x</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs32', 45)" onmouseover="showTip(event, 'fs32', 45)" class="i">XContainer</span>) <span class="k">-&gt;</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 46)" onmouseover="showTip(event, 'fs33', 46)" class="i">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 47)" onmouseover="showTip(event, 'fs31', 47)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 48)" onmouseover="showTip(event, 'fs34', 48)" class="i">ToString</span>()
+  <span class="k">if</span> <span onmouseout="hideTip(event, 'fs33', 49)" onmouseover="showTip(event, 'fs33', 49)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 50)" onmouseover="showTip(event, 'fs35', 50)" class="i">Length</span> <span class="o">&lt;</span> <span class="n">1000</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs33', 51)" onmouseover="showTip(event, 'fs33', 51)" class="i">s</span>
+  <span class="k">else</span> <span onmouseout="hideTip(event, 'fs33', 52)" onmouseover="showTip(event, 'fs33', 52)" class="i">s</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 53)" onmouseover="showTip(event, 'fs36', 53)" class="i">Substring</span>(<span class="n">0</span>, <span class="n">1000</span>) <span class="o">+</span> <span class="s">&quot;</span><span class="s">.</span><span class="s">.</span><span class="s">.</span><span class="s">&quot;</span> )
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 54)" onmouseover="showTip(event, 'fs37', 54)" class="i">doc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 55)" onmouseover="showTip(event, 'fs25', 55)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 56)" onmouseover="showTip(event, 'fs38', 56)" class="i">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs7', 57)" onmouseover="showTip(event, 'fs7', 57)" class="i">worldBankDownload</span> <span class="s">&quot;</span><span class="s">countries</span><span class="s">&quot;</span> <span class="s">&quot;</span><span class="s">&quot;</span>)
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 58)" onmouseover="showTip(event, 'fs39', 58)" class="i">xn</span> <span onmouseout="hideTip(event, 'fs33', 59)" onmouseover="showTip(event, 'fs33', 59)" class="i">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 60)" onmouseover="showTip(event, 'fs40', 60)" class="i">XName</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 61)" onmouseover="showTip(event, 'fs41', 61)" class="i">Get</span>(<span onmouseout="hideTip(event, 'fs33', 62)" onmouseover="showTip(event, 'fs33', 62)" class="i">s</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 63)" onmouseover="showTip(event, 'fs42', 63)" class="i">xnw</span> <span onmouseout="hideTip(event, 'fs33', 64)" onmouseover="showTip(event, 'fs33', 64)" class="i">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 65)" onmouseover="showTip(event, 'fs40', 65)" class="i">XName</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 66)" onmouseover="showTip(event, 'fs41', 66)" class="i">Get</span>(<span onmouseout="hideTip(event, 'fs33', 67)" onmouseover="showTip(event, 'fs33', 67)" class="i">s</span>, <span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">www</span><span class="s">.</span><span class="s">worldbank</span><span class="s">.</span><span class="s">org</span><span class="s">&quot;</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>Look at the first returned country</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 68)" onmouseover="showTip(event, 'fs43', 68)" class="i">c</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs37', 69)" onmouseover="showTip(event, 'fs37', 69)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 70)" onmouseover="showTip(event, 'fs44', 70)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 71)" onmouseover="showTip(event, 'fs42', 71)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">countries</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 72)" onmouseover="showTip(event, 'fs42', 72)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">country</span><span class="s">&quot;</span>)
+<span onmouseout="hideTip(event, 'fs43', 73)" onmouseover="showTip(event, 'fs43', 73)" class="i">c</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 74)" onmouseover="showTip(event, 'fs45', 74)" class="i">Attribute</span>(<span onmouseout="hideTip(event, 'fs39', 75)" onmouseover="showTip(event, 'fs39', 75)" class="i">xn</span> <span class="s">&quot;</span><span class="s">id</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span>
+<span onmouseout="hideTip(event, 'fs43', 76)" onmouseover="showTip(event, 'fs43', 76)" class="i">c</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 77)" onmouseover="showTip(event, 'fs44', 77)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 78)" onmouseover="showTip(event, 'fs42', 78)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">name</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span>
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 79)" onmouseover="showTip(event, 'fs46', 79)" class="i">regions</span> <span class="o">=</span> 
+  [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs47', 80)" onmouseover="showTip(event, 'fs47', 80)" class="i">r</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 82)" onmouseover="showTip(event, 'fs44', 82)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">countries</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Elements</span>(<span onmouseout="hideTip(event, 'fs42', 84)" onmouseover="showTip(event, 'fs42', 84)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">country</span><span class="s">&quot;</span>) <span class="k">do</span>
+      <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs47', 85)" onmouseover="showTip(event, 'fs47', 85)" class="i">r</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 87)" onmouseover="showTip(event, 'fs42', 87)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">name</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span> ]</pre>
+</td>
+</tr>
+</table>
+
+<h2>Downloading area covered by forests</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs48', 88)" onmouseover="showTip(event, 'fs48', 88)" class="i">getIndicatorData</span> <span onmouseout="hideTip(event, 'fs49', 89)" onmouseover="showTip(event, 'fs49', 89)" class="i">ind</span> <span onmouseout="hideTip(event, 'fs50', 90)" onmouseover="showTip(event, 'fs50', 90)" class="i">date</span> <span onmouseout="hideTip(event, 'fs51', 91)" onmouseover="showTip(event, 'fs51', 91)" class="i">page</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 92)" onmouseover="showTip(event, 'fs10', 92)" class="i">async</span> {
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 93)" onmouseover="showTip(event, 'fs8', 93)" class="i">req</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 94)" onmouseover="showTip(event, 'fs13', 94)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">countries</span><span class="s">/</span><span class="s">indicators</span><span class="s">/</span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs49', 95)" onmouseover="showTip(event, 'fs49', 95)" class="i">ind</span> 
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 96)" onmouseover="showTip(event, 'fs9', 96)" class="i">args</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 97)" onmouseover="showTip(event, 'fs13', 97)" class="i">sprintf</span> <span class="s">&quot;</span><span class="s">&amp;</span><span class="s">date</span><span class="s">=</span><span class="s">%</span><span class="s">s</span><span class="s">&amp;</span><span class="s">page</span><span class="s">=</span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs50', 98)" onmouseover="showTip(event, 'fs50', 98)" class="i">date</span> <span onmouseout="hideTip(event, 'fs51', 99)" onmouseover="showTip(event, 'fs51', 99)" class="i">page</span>
+  <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs52', 100)" onmouseover="showTip(event, 'fs52', 100)" class="i">doc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 101)" onmouseover="showTip(event, 'fs7', 101)" class="i">worldBankDownload</span> <span onmouseout="hideTip(event, 'fs8', 102)" onmouseover="showTip(event, 'fs8', 102)" class="i">req</span> <span onmouseout="hideTip(event, 'fs9', 103)" onmouseover="showTip(event, 'fs9', 103)" class="i">args</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 104)" onmouseover="showTip(event, 'fs53', 104)" class="i">pages</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs52', 105)" onmouseover="showTip(event, 'fs52', 105)" class="i">doc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 106)" onmouseover="showTip(event, 'fs44', 106)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 107)" onmouseover="showTip(event, 'fs42', 107)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">data</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Attribute</span>(<span onmouseout="hideTip(event, 'fs39', 108)" onmouseover="showTip(event, 'fs39', 108)" class="i">xn</span> <span class="s">&quot;</span><span class="s">pages</span><span class="s">&quot;</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs54', 109)" onmouseover="showTip(event, 'fs54', 109)" class="i">int</span>
+  <span class="k">if</span> (<span onmouseout="hideTip(event, 'fs53', 110)" onmouseover="showTip(event, 'fs53', 110)" class="i">pages</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 111)" onmouseover="showTip(event, 'fs51', 111)" class="i">page</span>) <span class="k">then</span> <span class="k">return</span> [<span onmouseout="hideTip(event, 'fs52', 112)" onmouseover="showTip(event, 'fs52', 112)" class="i">doc</span>]
+  <span class="k">else</span> 
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs55', 113)" onmouseover="showTip(event, 'fs55', 113)" class="i">rest</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs48', 114)" onmouseover="showTip(event, 'fs48', 114)" class="i">getIndicatorData</span> <span onmouseout="hideTip(event, 'fs49', 115)" onmouseover="showTip(event, 'fs49', 115)" class="i">ind</span> <span onmouseout="hideTip(event, 'fs50', 116)" onmouseover="showTip(event, 'fs50', 116)" class="i">date</span> (<span onmouseout="hideTip(event, 'fs51', 117)" onmouseover="showTip(event, 'fs51', 117)" class="i">page</span> <span class="o">+</span> <span class="n">1</span>)
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs52', 118)" onmouseover="showTip(event, 'fs52', 118)" class="i">doc</span><span class="o">::</span><span onmouseout="hideTip(event, 'fs55', 119)" onmouseover="showTip(event, 'fs55', 119)" class="i">rest</span> }
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 120)" onmouseover="showTip(event, 'fs56', 120)" class="i">frst</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs48', 121)" onmouseover="showTip(event, 'fs48', 121)" class="i">getIndicatorData</span> <span class="s">&quot;</span><span class="s">AG</span><span class="s">.</span><span class="s">LND</span><span class="s">.</span><span class="s">FRST</span><span class="s">.</span><span class="s">ZS</span><span class="s">&quot;</span> <span class="s">&quot;</span><span class="s">1990</span><span class="s">:</span><span class="s">1990</span><span class="s">&quot;</span> <span class="n">1</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 122)" onmouseover="showTip(event, 'fs25', 122)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 123)" onmouseover="showTip(event, 'fs38', 123)" class="i">RunSynchronously</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 124)" onmouseover="showTip(event, 'fs57', 124)" class="i">downloadAll</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs25', 125)" onmouseover="showTip(event, 'fs25', 125)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs58', 126)" onmouseover="showTip(event, 'fs58', 126)" class="i">Parallel</span> 
+    [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs49', 127)" onmouseover="showTip(event, 'fs49', 127)" class="i">ind</span> <span class="k">in</span> [ <span class="s">&quot;</span><span class="s">AG</span><span class="s">.</span><span class="s">SRF</span><span class="s">.</span><span class="s">TOTL</span><span class="s">.</span><span class="s">K2</span><span class="s">&quot;</span>; <span class="s">&quot;</span><span class="s">AG</span><span class="s">.</span><span class="s">LND</span><span class="s">.</span><span class="s">FRST</span><span class="s">.</span><span class="s">ZS</span><span class="s">&quot;</span> ] <span class="k">do</span> 
+        <span class="k">for</span> <span onmouseout="hideTip(event, 'fs59', 128)" onmouseover="showTip(event, 'fs59', 128)" class="i">year</span> <span class="k">in</span> [ <span class="s">&quot;</span><span class="s">1990</span><span class="s">:</span><span class="s">1990</span><span class="s">&quot;</span>; <span class="s">&quot;</span><span class="s">2000</span><span class="s">:</span><span class="s">2000</span><span class="s">&quot;</span>; <span class="s">&quot;</span><span class="s">2005</span><span class="s">:</span><span class="s">2005</span><span class="s">&quot;</span> ] <span class="k">do</span> 
+           <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs48', 129)" onmouseover="showTip(event, 'fs48', 129)" class="i">getIndicatorData</span> <span onmouseout="hideTip(event, 'fs49', 130)" onmouseover="showTip(event, 'fs49', 130)" class="i">ind</span> <span onmouseout="hideTip(event, 'fs59', 131)" onmouseover="showTip(event, 'fs59', 131)" class="i">year</span> <span class="n">1</span> ]
+          
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 132)" onmouseover="showTip(event, 'fs60', 132)" class="i">alldata</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 133)" onmouseover="showTip(event, 'fs25', 133)" class="i">Async</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 134)" onmouseover="showTip(event, 'fs38', 134)" class="i">RunSynchronously</span>(<span onmouseout="hideTip(event, 'fs57', 135)" onmouseover="showTip(event, 'fs57', 135)" class="i">downloadAll</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>more</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs61', 136)" onmouseover="showTip(event, 'fs61', 136)" class="i">readSingleValue</span> (<span onmouseout="hideTip(event, 'fs62', 137)" onmouseover="showTip(event, 'fs62', 137)" class="i">node</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs63', 138)" onmouseover="showTip(event, 'fs63', 138)" class="i">XElement</span>) <span class="o">=</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 139)" onmouseover="showTip(event, 'fs64', 139)" class="i">value</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs62', 140)" onmouseover="showTip(event, 'fs62', 140)" class="i">node</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 141)" onmouseover="showTip(event, 'fs44', 141)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 142)" onmouseover="showTip(event, 'fs42', 142)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">value</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 143)" onmouseover="showTip(event, 'fs65', 143)" class="i">country</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs62', 144)" onmouseover="showTip(event, 'fs62', 144)" class="i">node</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 145)" onmouseover="showTip(event, 'fs44', 145)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 146)" onmouseover="showTip(event, 'fs42', 146)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">country</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span>
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs66', 147)" onmouseover="showTip(event, 'fs66', 147)" class="i">date</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs62', 148)" onmouseover="showTip(event, 'fs62', 148)" class="i">node</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 149)" onmouseover="showTip(event, 'fs44', 149)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 150)" onmouseover="showTip(event, 'fs42', 150)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">date</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs54', 151)" onmouseover="showTip(event, 'fs54', 151)" class="i">int</span>
+  <span class="k">if</span> (<span onmouseout="hideTip(event, 'fs64', 152)" onmouseover="showTip(event, 'fs64', 152)" class="i">value</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">&quot;</span>) <span class="k">then</span> [] 
+  <span class="k">else</span> [ (<span onmouseout="hideTip(event, 'fs66', 153)" onmouseover="showTip(event, 'fs66', 153)" class="i">date</span>, <span onmouseout="hideTip(event, 'fs65', 154)" onmouseover="showTip(event, 'fs65', 154)" class="i">country</span>), <span onmouseout="hideTip(event, 'fs64', 155)" onmouseover="showTip(event, 'fs64', 155)" class="i">value</span> ]
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs67', 156)" onmouseover="showTip(event, 'fs67', 156)" class="i">readValues</span> (<span onmouseout="hideTip(event, 'fs68', 157)" onmouseover="showTip(event, 'fs68', 157)" class="i">data</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs69', 158)" onmouseover="showTip(event, 'fs69', 158)" class="i">list</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs27', 159)" onmouseover="showTip(event, 'fs27', 159)" class="i">XDocument</span><span class="o">&gt;</span>) <span class="o">=</span> 
+  [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs70', 160)" onmouseover="showTip(event, 'fs70', 160)" class="i">page</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs68', 161)" onmouseover="showTip(event, 'fs68', 161)" class="i">data</span> <span class="k">do</span>
+      <span class="k">for</span> <span onmouseout="hideTip(event, 'fs62', 162)" onmouseover="showTip(event, 'fs62', 162)" class="i">node</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs70', 163)" onmouseover="showTip(event, 'fs70', 163)" class="i">page</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 164)" onmouseover="showTip(event, 'fs44', 164)" class="i">Element</span>(<span onmouseout="hideTip(event, 'fs42', 165)" onmouseover="showTip(event, 'fs42', 165)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">data</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Elements</span>(<span onmouseout="hideTip(event, 'fs42', 166)" onmouseover="showTip(event, 'fs42', 166)" class="i">xnw</span> <span class="s">&quot;</span><span class="s">data</span><span class="s">&quot;</span>) <span class="k">do</span>
+        <span class="k">yield!</span> <span onmouseout="hideTip(event, 'fs62', 167)" onmouseover="showTip(event, 'fs62', 167)" class="i">node</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 168)" onmouseover="showTip(event, 'fs61', 168)" class="i">readSingleValue</span> ]
+
+<span class="c">// Read values for the first loaded indicator</span>
+<span onmouseout="hideTip(event, 'fs60', 169)" onmouseover="showTip(event, 'fs60', 169)" class="i">alldata</span><span class="o">.</span>[<span class="n">0</span>] <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs67', 170)" onmouseover="showTip(event, 'fs67', 170)" class="i">readValues</span></pre>
+</td>
+</tr>
+</table>
+
+<h2>Converting input into structured data</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+[&lt;<span onmouseout="hideTip(event, 'fs71', 171)" onmouseover="showTip(event, 'fs71', 171)" class="i">Measure</span>&gt;] <span class="k">type</span> <span onmouseout="hideTip(event, 'fs72', 172)" onmouseover="showTip(event, 'fs72', 172)" class="i">km</span>
+[&lt;<span onmouseout="hideTip(event, 'fs71', 173)" onmouseover="showTip(event, 'fs71', 173)" class="i">Measure</span>&gt;] <span class="k">type</span> <span onmouseout="hideTip(event, 'fs73', 174)" onmouseover="showTip(event, 'fs73', 174)" class="i">percent</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs74', 175)" onmouseover="showTip(event, 'fs74', 175)" class="i">areas</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs75', 176)" onmouseover="showTip(event, 'fs75', 176)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 177)" onmouseover="showTip(event, 'fs76', 177)" class="i">concat</span>(<span onmouseout="hideTip(event, 'fs60', 178)" onmouseover="showTip(event, 'fs60', 178)" class="i">alldata</span><span class="o">.</span>[<span class="n">0</span> <span class="o">..</span> <span class="n">2</span>])
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs67', 179)" onmouseover="showTip(event, 'fs67', 179)" class="i">readValues</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 180)" onmouseover="showTip(event, 'fs75', 180)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 181)" onmouseover="showTip(event, 'fs77', 181)" class="i">map</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs78', 182)" onmouseover="showTip(event, 'fs78', 182)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs79', 183)" onmouseover="showTip(event, 'fs79', 183)" class="i">v</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs78', 184)" onmouseover="showTip(event, 'fs78', 184)" class="i">k</span>, (<span onmouseout="hideTip(event, 'fs80', 185)" onmouseover="showTip(event, 'fs80', 185)" class="i">float</span>(<span onmouseout="hideTip(event, 'fs79', 186)" onmouseover="showTip(event, 'fs79', 186)" class="i">v</span>) <span class="o">*</span> <span class="n">1.0</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs72', 187)" onmouseover="showTip(event, 'fs72', 187)" class="i">km</span><span class="o">^</span><span class="n">2</span><span class="o">&gt;</span>))
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs81', 188)" onmouseover="showTip(event, 'fs81', 188)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs82', 189)" onmouseover="showTip(event, 'fs82', 189)" class="i">ofSeq</span> 
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs83', 190)" onmouseover="showTip(event, 'fs83', 190)" class="i">forests</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs75', 191)" onmouseover="showTip(event, 'fs75', 191)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 192)" onmouseover="showTip(event, 'fs76', 192)" class="i">concat</span>(<span onmouseout="hideTip(event, 'fs60', 193)" onmouseover="showTip(event, 'fs60', 193)" class="i">alldata</span><span class="o">.</span>[<span class="n">3</span> <span class="o">..</span> <span class="n">5</span>])
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs67', 194)" onmouseover="showTip(event, 'fs67', 194)" class="i">readValues</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 195)" onmouseover="showTip(event, 'fs75', 195)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 196)" onmouseover="showTip(event, 'fs77', 196)" class="i">map</span> (<span class="k">fun</span> (<span onmouseout="hideTip(event, 'fs78', 197)" onmouseover="showTip(event, 'fs78', 197)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs79', 198)" onmouseover="showTip(event, 'fs79', 198)" class="i">v</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs78', 199)" onmouseover="showTip(event, 'fs78', 199)" class="i">k</span>, <span onmouseout="hideTip(event, 'fs80', 200)" onmouseover="showTip(event, 'fs80', 200)" class="i">float</span>(<span onmouseout="hideTip(event, 'fs79', 201)" onmouseover="showTip(event, 'fs79', 201)" class="i">v</span>) <span class="o">*</span> <span class="n">1.0</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs73', 202)" onmouseover="showTip(event, 'fs73', 202)" class="i">percent</span><span class="o">&gt;</span>) 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs81', 203)" onmouseover="showTip(event, 'fs81', 203)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs82', 204)" onmouseover="showTip(event, 'fs82', 204)" class="i">ofSeq</span>  
+  
+  
+<span class="c">// Calculating total area covered by forests</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs84', 205)" onmouseover="showTip(event, 'fs84', 205)" class="i">calculateForests</span> (<span onmouseout="hideTip(event, 'fs85', 206)" onmouseover="showTip(event, 'fs85', 206)" class="i">area</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs80', 207)" onmouseover="showTip(event, 'fs80', 207)" class="i">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs72', 208)" onmouseover="showTip(event, 'fs72', 208)" class="i">km</span><span class="o">^</span><span class="n">2</span><span class="o">&gt;</span>) (<span onmouseout="hideTip(event, 'fs86', 209)" onmouseover="showTip(event, 'fs86', 209)" class="i">forest</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs80', 210)" onmouseover="showTip(event, 'fs80', 210)" class="i">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs73', 211)" onmouseover="showTip(event, 'fs73', 211)" class="i">percent</span><span class="o">&gt;</span>) <span class="o">=</span>
+   <span onmouseout="hideTip(event, 'fs85', 212)" onmouseover="showTip(event, 'fs85', 212)" class="i">area</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs86', 213)" onmouseover="showTip(event, 'fs86', 213)" class="i">forest</span> <span class="o">/</span> <span class="n">100.0</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs73', 214)" onmouseover="showTip(event, 'fs73', 214)" class="i">percent</span><span class="o">&gt;</span>
+
+<span class="c">// Run the calculation for sample input</span>
+<span onmouseout="hideTip(event, 'fs84', 215)" onmouseover="showTip(event, 'fs84', 215)" class="i">calculateForests</span> <span class="n">1000.0</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs72', 216)" onmouseover="showTip(event, 'fs72', 216)" class="i">km</span><span class="o">^</span><span class="n">2</span><span class="o">&gt;</span> <span class="n">10.0</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs73', 217)" onmouseover="showTip(event, 'fs73', 217)" class="i">percent</span><span class="o">&gt;</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Create list of data that can be visualized</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs87', 218)" onmouseover="showTip(event, 'fs87', 218)" class="i">years</span> <span class="o">=</span> [| <span class="n">1990</span>; <span class="n">2000</span>; <span class="n">2005</span> |]
+
+<span class="c">// Check if all data is available for the specified region</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs88', 219)" onmouseover="showTip(event, 'fs88', 219)" class="i">dataAvailable</span> <span onmouseout="hideTip(event, 'fs11', 220)" onmouseover="showTip(event, 'fs11', 220)" class="i">key</span> <span class="o">=</span> 
+   <span onmouseout="hideTip(event, 'fs87', 221)" onmouseover="showTip(event, 'fs87', 221)" class="i">years</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs89', 222)" onmouseover="showTip(event, 'fs89', 222)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs90', 223)" onmouseover="showTip(event, 'fs90', 223)" class="i">forall</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs91', 224)" onmouseover="showTip(event, 'fs91', 224)" class="i">y</span> <span class="k">-&gt;</span>
+      <span onmouseout="hideTip(event, 'fs74', 225)" onmouseover="showTip(event, 'fs74', 225)" class="i">areas</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs92', 226)" onmouseover="showTip(event, 'fs92', 226)" class="i">ContainsKey</span>(<span onmouseout="hideTip(event, 'fs91', 227)" onmouseover="showTip(event, 'fs91', 227)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs11', 228)" onmouseover="showTip(event, 'fs11', 228)" class="i">key</span>) <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs83', 229)" onmouseover="showTip(event, 'fs83', 229)" class="i">forests</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs92', 230)" onmouseover="showTip(event, 'fs92', 230)" class="i">ContainsKey</span>(<span onmouseout="hideTip(event, 'fs91', 231)" onmouseover="showTip(event, 'fs91', 231)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs11', 232)" onmouseover="showTip(event, 'fs11', 232)" class="i">key</span>) )
+
+<span class="c">// Get data for the specified year as a list of values</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs93', 233)" onmouseover="showTip(event, 'fs93', 233)" class="i">getData</span> <span onmouseout="hideTip(event, 'fs91', 234)" onmouseover="showTip(event, 'fs91', 234)" class="i">y</span> <span class="o">=</span>
+  [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs94', 235)" onmouseover="showTip(event, 'fs94', 235)" class="i">name</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs46', 236)" onmouseover="showTip(event, 'fs46', 236)" class="i">regions</span> <span class="k">do</span>      
+      <span class="k">if</span> <span onmouseout="hideTip(event, 'fs88', 237)" onmouseover="showTip(event, 'fs88', 237)" class="i">dataAvailable</span>(<span onmouseout="hideTip(event, 'fs94', 238)" onmouseover="showTip(event, 'fs94', 238)" class="i">name</span>) <span class="k">then</span>    
+        <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs84', 239)" onmouseover="showTip(event, 'fs84', 239)" class="i">calculateForests</span> <span onmouseout="hideTip(event, 'fs74', 240)" onmouseover="showTip(event, 'fs74', 240)" class="i">areas</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs91', 241)" onmouseover="showTip(event, 'fs91', 241)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs94', 242)" onmouseover="showTip(event, 'fs94', 242)" class="i">name</span>] <span onmouseout="hideTip(event, 'fs83', 243)" onmouseover="showTip(event, 'fs83', 243)" class="i">forests</span><span class="o">.</span>[<span onmouseout="hideTip(event, 'fs91', 244)" onmouseover="showTip(event, 'fs91', 244)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs94', 245)" onmouseover="showTip(event, 'fs94', 245)" class="i">name</span>] ]
+
+<span class="c">// Collect data for all years                </span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs95', 246)" onmouseover="showTip(event, 'fs95', 246)" class="i">stats</span> <span class="o">=</span> 
+  [| <span class="k">for</span> <span onmouseout="hideTip(event, 'fs91', 247)" onmouseover="showTip(event, 'fs91', 247)" class="i">y</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs87', 248)" onmouseover="showTip(event, 'fs87', 248)" class="i">years</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs91', 249)" onmouseover="showTip(event, 'fs91', 249)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs93', 250)" onmouseover="showTip(event, 'fs93', 250)" class="i">getData</span> <span onmouseout="hideTip(event, 'fs91', 251)" onmouseover="showTip(event, 'fs91', 251)" class="i">y</span> |]
+
+<span class="c">// Get names of regions with available data</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs96', 252)" onmouseover="showTip(event, 'fs96', 252)" class="i">names</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 253)" onmouseover="showTip(event, 'fs46', 253)" class="i">regions</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 254)" onmouseover="showTip(event, 'fs75', 254)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs97', 255)" onmouseover="showTip(event, 'fs97', 255)" class="i">filter</span> <span onmouseout="hideTip(event, 'fs88', 256)" onmouseover="showTip(event, 'fs88', 256)" class="i">dataAvailable</span></pre>
+</td>
+</tr>
+</table>
+
+<h2>Drawing plots</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">bin</span><span class="s">/</span><span class="s">FnuPlot</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs98', 257)" onmouseover="showTip(event, 'fs98', 257)" class="i">FnuPlot</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 258)" onmouseover="showTip(event, 'fs1', 258)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs99', 259)" onmouseover="showTip(event, 'fs99', 259)" class="i">Drawing</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs100', 260)" onmouseover="showTip(event, 'fs100', 260)" class="i">path</span> <span class="o">=</span> <span class="s">@&quot;</span><span class="s">C</span><span class="s">:</span><span class="s">\</span><span class="s">Programs</span><span class="s">\</span><span class="s">Data</span><span class="s">\</span><span class="s">gnuplot</span><span class="s">\</span><span class="s">bin</span><span class="s">\</span><span class="s">gnuplot</span><span class="s">.</span><span class="s">exe</span><span class="s">&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs101', 261)" onmouseover="showTip(event, 'fs101', 261)" class="i">gp</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs102', 262)" onmouseover="showTip(event, 'fs102', 262)" class="i">GnuPlot</span>(<span onmouseout="hideTip(event, 'fs100', 263)" onmouseover="showTip(event, 'fs100', 263)" class="i">path</span>)
+<span onmouseout="hideTip(event, 'fs101', 264)" onmouseover="showTip(event, 'fs101', 264)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs103', 265)" onmouseover="showTip(event, 'fs103', 265)" class="i">Set</span>(<span class="i">output</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs104', 266)" onmouseover="showTip(event, 'fs104', 266)" class="i">Output</span>(<span onmouseout="hideTip(event, 'fs105', 267)" onmouseover="showTip(event, 'fs105', 267)" class="i">X11</span>, <span class="i">font</span><span class="o">=</span><span class="s">&quot;</span><span class="s">arial</span><span class="s">&quot;</span>))</pre>
+</td>
+</tr>
+</table>
+
+<p>Simple examples of working with gnuplot</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs101', 268)" onmouseover="showTip(event, 'fs101', 268)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs106', 269)" onmouseover="showTip(event, 'fs106', 269)" class="i">Plot</span>(<span class="s">&quot;</span><span class="s">sin</span><span class="s">(</span><span class="s">x</span><span class="s">)</span><span class="s">&quot;</span>)
+<span onmouseout="hideTip(event, 'fs101', 270)" onmouseover="showTip(event, 'fs101', 270)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs106', 271)" onmouseover="showTip(event, 'fs106', 271)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs107', 272)" onmouseover="showTip(event, 'fs107', 272)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs108', 273)" onmouseover="showTip(event, 'fs108', 273)" class="i">Lines</span>([<span class="n">3.0</span>; <span class="n">2.0</span>; <span class="n">4.0</span>; <span class="n">1.0</span>;], <span class="i">title</span><span class="o">=</span><span class="s">&quot;</span><span class="s">Sample</span><span class="s">&quot;</span>))</pre>
+</td>
+</tr>
+</table>
+
+<p>Plot multiple histograms into a single plot</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs101', 274)" onmouseover="showTip(event, 'fs101', 274)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs106', 275)" onmouseover="showTip(event, 'fs106', 275)" class="i">Plot</span>
+  [ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs109', 276)" onmouseover="showTip(event, 'fs109', 276)" class="i">year</span>, <span onmouseout="hideTip(event, 'fs110', 277)" onmouseover="showTip(event, 'fs110', 277)" class="i">values</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs95', 278)" onmouseover="showTip(event, 'fs95', 278)" class="i">stats</span> <span class="k">-&gt;</span>
+      <span onmouseout="hideTip(event, 'fs107', 279)" onmouseover="showTip(event, 'fs107', 279)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs111', 280)" onmouseover="showTip(event, 'fs111', 280)" class="i">Histogram</span>(<span class="i">data</span> <span class="o">=</span> (<span onmouseout="hideTip(event, 'fs110', 281)" onmouseover="showTip(event, 'fs110', 281)" class="i">values</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 282)" onmouseover="showTip(event, 'fs75', 282)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 283)" onmouseover="showTip(event, 'fs77', 283)" class="i">map</span> <span onmouseout="hideTip(event, 'fs80', 284)" onmouseover="showTip(event, 'fs80', 284)" class="i">float</span>)) ]</pre>
+</td>
+</tr>
+</table>
+
+<p>Set more properties of 'gnuplot'</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs101', 285)" onmouseover="showTip(event, 'fs101', 285)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs103', 286)" onmouseover="showTip(event, 'fs103', 286)" class="i">Set</span>
+  ( <span class="i">output</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs104', 287)" onmouseover="showTip(event, 'fs104', 287)" class="i">Output</span>(<span onmouseout="hideTip(event, 'fs105', 288)" onmouseover="showTip(event, 'fs105', 288)" class="i">X11</span>, <span class="i">font</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">arial</span><span class="s">&quot;</span>),
+    <span class="i">style</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs112', 289)" onmouseover="showTip(event, 'fs112', 289)" class="i">Style</span>(<span onmouseout="hideTip(event, 'fs113', 290)" onmouseover="showTip(event, 'fs113', 290)" class="i">Solid</span>), 
+    <span class="i">range</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs114', 291)" onmouseover="showTip(event, 'fs114', 291)" class="i">RangeY</span><span class="o">.</span>[ <span class="o">-</span><span class="n">5e5</span> <span class="o">..</span> <span class="n">6e7</span>],
+    <span class="i">titles</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs115', 292)" onmouseover="showTip(event, 'fs115', 292)" class="i">Titles</span>(<span onmouseout="hideTip(event, 'fs116', 293)" onmouseover="showTip(event, 'fs116', 293)" class="i">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs96', 294)" onmouseover="showTip(event, 'fs96', 294)" class="i">names</span>, <span class="i">xrotate</span> <span class="o">=</span> <span class="o">-</span><span class="n">90</span>) )
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs117', 295)" onmouseover="showTip(event, 'fs117', 295)" class="i">colors</span> <span class="o">=</span> 
+  [ <span onmouseout="hideTip(event, 'fs118', 296)" onmouseover="showTip(event, 'fs118', 296)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs119', 297)" onmouseover="showTip(event, 'fs119', 297)" class="i">OliveDrab</span>; <span onmouseout="hideTip(event, 'fs118', 298)" onmouseover="showTip(event, 'fs118', 298)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs120', 299)" onmouseover="showTip(event, 'fs120', 299)" class="i">SteelBlue</span>; <span onmouseout="hideTip(event, 'fs118', 300)" onmouseover="showTip(event, 'fs118', 300)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs121', 301)" onmouseover="showTip(event, 'fs121', 301)" class="i">Goldenrod</span> ]
+        
+<span onmouseout="hideTip(event, 'fs101', 302)" onmouseover="showTip(event, 'fs101', 302)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs106', 303)" onmouseover="showTip(event, 'fs106', 303)" class="i">Plot</span>
+  [ <span class="k">for</span> (<span onmouseout="hideTip(event, 'fs91', 304)" onmouseover="showTip(event, 'fs91', 304)" class="i">y</span>, <span onmouseout="hideTip(event, 'fs110', 305)" onmouseover="showTip(event, 'fs110', 305)" class="i">values</span>), <span onmouseout="hideTip(event, 'fs122', 306)" onmouseover="showTip(event, 'fs122', 306)" class="i">clr</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs89', 307)" onmouseover="showTip(event, 'fs89', 307)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs123', 308)" onmouseover="showTip(event, 'fs123', 308)" class="i">zip</span> <span onmouseout="hideTip(event, 'fs95', 309)" onmouseover="showTip(event, 'fs95', 309)" class="i">stats</span> <span onmouseout="hideTip(event, 'fs117', 310)" onmouseover="showTip(event, 'fs117', 310)" class="i">colors</span> <span class="k">-&gt;</span>
+      <span onmouseout="hideTip(event, 'fs107', 311)" onmouseover="showTip(event, 'fs107', 311)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs111', 312)" onmouseover="showTip(event, 'fs111', 312)" class="i">Histogram</span>
+        ( <span class="i">data</span> <span class="o">=</span> (<span class="i">values</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 313)" onmouseover="showTip(event, 'fs75', 313)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 314)" onmouseover="showTip(event, 'fs77', 314)" class="i">map</span> <span onmouseout="hideTip(event, 'fs80', 315)" onmouseover="showTip(event, 'fs80', 315)" class="i">float</span>), 
+          <span class="i">title</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs124', 316)" onmouseover="showTip(event, 'fs124', 316)" class="i">string</span> <span onmouseout="hideTip(event, 'fs91', 317)" onmouseover="showTip(event, 'fs91', 317)" class="i">y</span>, <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs122', 318)" onmouseover="showTip(event, 'fs122', 318)" class="i">clr</span>) ]</pre>
+</td>
+</tr>
+</table>
+
+<p>yay</p>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.IO</div>
+<div class="tip" id="fs3">namespace System.Net</div>
+<div class="tip" id="fs4">namespace System.Web</div>
+<div class="tip" id="fs5">namespace System.Xml</div>
+<div class="tip" id="fs6">namespace System.Xml.Linq</div>
+<div class="tip" id="fs7">val worldBankDownload : req:string -&gt; args:string -&gt; Async&lt;XDocument&gt;<br /><br />Full name: Worldbank.worldBankDownload</div>
+<div class="tip" id="fs8">val req : string</div>
+<div class="tip" id="fs9">val args : string</div>
+<div class="tip" id="fs10">val async : AsyncBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.async</div>
+<div class="tip" id="fs11">val key : string</div>
+<div class="tip" id="fs12">val url : string</div>
+<div class="tip" id="fs13">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.sprintf</div>
+<div class="tip" id="fs14">val req : WebRequest</div>
+<div class="tip" id="fs15">type HttpWebRequest =<br />&#160;&#160;inherit WebRequest<br />&#160;&#160;member Abort : unit -&gt; unit<br />&#160;&#160;member Accept : string with get, set<br />&#160;&#160;member AddRange : range:int -&gt; unit + 7 overloads<br />&#160;&#160;member Address : Uri<br />&#160;&#160;member AllowAutoRedirect : bool with get, set<br />&#160;&#160;member AllowWriteStreamBuffering : bool with get, set<br />&#160;&#160;member AutomaticDecompression : DecompressionMethods with get, set<br />&#160;&#160;member BeginGetRequestStream : callback:AsyncCallback * state:obj -&gt; IAsyncResult<br />&#160;&#160;member BeginGetResponse : callback:AsyncCallback * state:obj -&gt; IAsyncResult<br />&#160;&#160;member ClientCertificates : X509CertificateCollection with get, set<br />&#160;&#160;...<br /><br />Full name: System.Net.HttpWebRequest</div>
+<div class="tip" id="fs16">WebRequest.Create(requestUri: System.Uri) : WebRequest<br />WebRequest.Create(requestUriString: string) : WebRequest</div>
+<div class="tip" id="fs17">val resp : WebResponse</div>
+<div class="tip" id="fs18">member WebRequest.AsyncGetResponse : unit -&gt; Async&lt;WebResponse&gt;</div>
+<div class="tip" id="fs19">val response : WebResponse</div>
+<div class="tip" id="fs20">val stream : Stream</div>
+<div class="tip" id="fs21">WebResponse.GetResponseStream() : Stream</div>
+<div class="tip" id="fs22">val reader : StreamReader</div>
+<div class="tip" id="fs23">Multiple items<br />type StreamReader =<br />&#160;&#160;inherit TextReader<br />&#160;&#160;new : stream:Stream -&gt; StreamReader + 9 overloads<br />&#160;&#160;member BaseStream : Stream<br />&#160;&#160;member Close : unit -&gt; unit<br />&#160;&#160;member CurrentEncoding : Encoding<br />&#160;&#160;member DiscardBufferedData : unit -&gt; unit<br />&#160;&#160;member EndOfStream : bool<br />&#160;&#160;member Peek : unit -&gt; int<br />&#160;&#160;member Read : unit -&gt; int + 1 overload<br />&#160;&#160;member ReadLine : unit -&gt; string<br />&#160;&#160;member ReadToEnd : unit -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.IO.StreamReader<br /><br />--------------------<br />StreamReader(stream: Stream) : unit<br />StreamReader(path: string) : unit<br />StreamReader(stream: Stream, detectEncodingFromByteOrderMarks: bool) : unit<br />StreamReader(stream: Stream, encoding: System.Text.Encoding) : unit<br />StreamReader(path: string, detectEncodingFromByteOrderMarks: bool) : unit<br />StreamReader(path: string, encoding: System.Text.Encoding) : unit<br />StreamReader(stream: Stream, encoding: System.Text.Encoding, detectEncodingFromByteOrderMarks: bool) : unit<br />StreamReader(path: string, encoding: System.Text.Encoding, detectEncodingFromByteOrderMarks: bool) : unit<br />StreamReader(stream: Stream, encoding: System.Text.Encoding, detectEncodingFromByteOrderMarks: bool, bufferSize: int) : unit<br />StreamReader(path: string, encoding: System.Text.Encoding, detectEncodingFromByteOrderMarks: bool, bufferSize: int) : unit</div>
+<div class="tip" id="fs24">val res : string</div>
+<div class="tip" id="fs25">Multiple items<br />type Async<br />static member AsBeginEnd : computation:(&#39;Arg -&gt; Async&lt;&#39;T&gt;) -&gt; (&#39;Arg * AsyncCallback * obj -&gt; IAsyncResult) * (IAsyncResult -&gt; &#39;T) * (IAsyncResult -&gt; unit)<br />static member AwaitEvent : event:IEvent&lt;&#39;Del,&#39;T&gt; * ?cancelAction:(unit -&gt; unit) -&gt; Async&lt;&#39;T&gt; (requires delegate and &#39;Del :&gt; Delegate)<br />static member AwaitIAsyncResult : iar:IAsyncResult * ?millisecondsTimeout:int -&gt; Async&lt;bool&gt;<br />static member AwaitTask : task:Task&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;<br />static member AwaitWaitHandle : waitHandle:WaitHandle * ?millisecondsTimeout:int -&gt; Async&lt;bool&gt;<br />static member CancelDefaultToken : unit -&gt; unit<br />static member Catch : computation:Async&lt;&#39;T&gt; -&gt; Async&lt;Choice&lt;&#39;T,exn&gt;&gt;<br />static member FromBeginEnd : beginAction:(AsyncCallback * obj -&gt; IAsyncResult) * endAction:(IAsyncResult -&gt; &#39;T) * ?cancelAction:(unit -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member FromBeginEnd : arg:&#39;Arg1 * beginAction:(&#39;Arg1 * AsyncCallback * obj -&gt; IAsyncResult) * endAction:(IAsyncResult -&gt; &#39;T) * ?cancelAction:(unit -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member FromBeginEnd : arg1:&#39;Arg1 * arg2:&#39;Arg2 * beginAction:(&#39;Arg1 * &#39;Arg2 * AsyncCallback * obj -&gt; IAsyncResult) * endAction:(IAsyncResult -&gt; &#39;T) * ?cancelAction:(unit -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member FromBeginEnd : arg1:&#39;Arg1 * arg2:&#39;Arg2 * arg3:&#39;Arg3 * beginAction:(&#39;Arg1 * &#39;Arg2 * &#39;Arg3 * AsyncCallback * obj -&gt; IAsyncResult) * endAction:(IAsyncResult -&gt; &#39;T) * ?cancelAction:(unit -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member FromContinuations : callback:((&#39;T -&gt; unit) * (exn -&gt; unit) * (OperationCanceledException -&gt; unit) -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member Ignore : computation:Async&lt;&#39;T&gt; -&gt; Async&lt;unit&gt;<br />static member OnCancel : interruption:(unit -&gt; unit) -&gt; Async&lt;IDisposable&gt;<br />static member Parallel : computations:seq&lt;Async&lt;&#39;T&gt;&gt; -&gt; Async&lt;&#39;T []&gt;<br />static member RunSynchronously : computation:Async&lt;&#39;T&gt; * ?timeout:int * ?cancellationToken:CancellationToken -&gt; &#39;T<br />static member Sleep : millisecondsDueTime:int -&gt; Async&lt;unit&gt;<br />static member Start : computation:Async&lt;unit&gt; * ?cancellationToken:CancellationToken -&gt; unit<br />static member StartAsTask : computation:Async&lt;&#39;T&gt; * ?taskCreationOptions:TaskCreationOptions * ?cancellationToken:CancellationToken -&gt; Task&lt;&#39;T&gt;<br />static member StartChild : computation:Async&lt;&#39;T&gt; * ?millisecondsTimeout:int -&gt; Async&lt;Async&lt;&#39;T&gt;&gt;<br />static member StartChildAsTask : computation:Async&lt;&#39;T&gt; * ?taskCreationOptions:TaskCreationOptions -&gt; Async&lt;Task&lt;&#39;T&gt;&gt;<br />static member StartImmediate : computation:Async&lt;unit&gt; * ?cancellationToken:CancellationToken -&gt; unit<br />static member StartWithContinuations : computation:Async&lt;&#39;T&gt; * continuation:(&#39;T -&gt; unit) * exceptionContinuation:(exn -&gt; unit) * cancellationContinuation:(OperationCanceledException -&gt; unit) * ?cancellationToken:CancellationToken -&gt; unit<br />static member SwitchToContext : syncContext:SynchronizationContext -&gt; Async&lt;unit&gt;<br />static member SwitchToNewThread : unit -&gt; Async&lt;unit&gt;<br />static member SwitchToThreadPool : unit -&gt; Async&lt;unit&gt;<br />static member TryCancelled : computation:Async&lt;&#39;T&gt; * compensation:(OperationCanceledException -&gt; unit) -&gt; Async&lt;&#39;T&gt;<br />static member CancellationToken : Async&lt;CancellationToken&gt;<br />static member DefaultCancellationToken : CancellationToken<br /><br />Full name: Microsoft.FSharp.Control.Async<br /><br />--------------------<br />type Async&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Control.Async&lt;_&gt;</div>
+<div class="tip" id="fs26">static member Async.AwaitTask : task:System.Threading.Tasks.Task&lt;&#39;T&gt; -&gt; Async&lt;&#39;T&gt;</div>
+<div class="tip" id="fs27">Multiple items<br />type XDocument =<br />&#160;&#160;inherit XContainer<br />&#160;&#160;new : unit -&gt; XDocument + 3 overloads<br />&#160;&#160;member Declaration : XDeclaration with get, set<br />&#160;&#160;member DocumentType : XDocumentType<br />&#160;&#160;member NodeType : XmlNodeType<br />&#160;&#160;member Root : XElement<br />&#160;&#160;member Save : fileName:string -&gt; unit + 6 overloads<br />&#160;&#160;member WriteTo : writer:XmlWriter -&gt; unit<br />&#160;&#160;static member Load : uri:string -&gt; XDocument + 7 overloads<br />&#160;&#160;static member Parse : text:string -&gt; XDocument + 1 overload<br /><br />Full name: System.Xml.Linq.XDocument<br /><br />--------------------<br />XDocument() : unit<br />XDocument(params content: obj []) : unit<br />XDocument(other: XDocument) : unit<br />XDocument(declaration: XDeclaration, params content: obj []) : unit</div>
+<div class="tip" id="fs28">XDocument.Parse(text: string) : XDocument<br />XDocument.Parse(text: string, options: LoadOptions) : XDocument</div>
+<div class="tip" id="fs29">val fsi : Compiler.Interactive.InteractiveSession<br /><br />Full name: Microsoft.FSharp.Compiler.Interactive.Settings.fsi</div>
+<div class="tip" id="fs30">member Compiler.Interactive.InteractiveSession.AddPrinter : (&#39;T -&gt; string) -&gt; unit</div>
+<div class="tip" id="fs31">val x : XContainer</div>
+<div class="tip" id="fs32">type XContainer =<br />&#160;&#160;inherit XNode<br />&#160;&#160;member Add : content:obj -&gt; unit + 1 overload<br />&#160;&#160;member AddFirst : content:obj -&gt; unit + 1 overload<br />&#160;&#160;member CreateWriter : unit -&gt; XmlWriter<br />&#160;&#160;member DescendantNodes : unit -&gt; IEnumerable&lt;XNode&gt;<br />&#160;&#160;member Descendants : unit -&gt; IEnumerable&lt;XElement&gt; + 1 overload<br />&#160;&#160;member Element : name:XName -&gt; XElement<br />&#160;&#160;member Elements : unit -&gt; IEnumerable&lt;XElement&gt; + 1 overload<br />&#160;&#160;member FirstNode : XNode<br />&#160;&#160;member LastNode : XNode<br />&#160;&#160;member Nodes : unit -&gt; IEnumerable&lt;XNode&gt;<br />&#160;&#160;...<br /><br />Full name: System.Xml.Linq.XContainer</div>
+<div class="tip" id="fs33">val s : string</div>
+<div class="tip" id="fs34">XNode.ToString() : string<br />XNode.ToString(options: SaveOptions) : string</div>
+<div class="tip" id="fs35">property System.String.Length: int</div>
+<div class="tip" id="fs36">System.String.Substring(startIndex: int) : string<br />System.String.Substring(startIndex: int, length: int) : string</div>
+<div class="tip" id="fs37">val doc : XDocument<br /><br />Full name: Worldbank.doc</div>
+<div class="tip" id="fs38">static member Async.RunSynchronously : computation:Async&lt;&#39;T&gt; * ?timeout:int * ?cancellationToken:System.Threading.CancellationToken -&gt; &#39;T</div>
+<div class="tip" id="fs39">val xn : s:string -&gt; XName<br /><br />Full name: Worldbank.xn</div>
+<div class="tip" id="fs40">type XName =<br />&#160;&#160;member Equals : obj:obj -&gt; bool<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member LocalName : string<br />&#160;&#160;member Namespace : XNamespace<br />&#160;&#160;member NamespaceName : string<br />&#160;&#160;member ToString : unit -&gt; string<br />&#160;&#160;static member Get : expandedName:string -&gt; XName + 1 overload<br /><br />Full name: System.Xml.Linq.XName</div>
+<div class="tip" id="fs41">XName.Get(expandedName: string) : XName<br />XName.Get(localName: string, namespaceName: string) : XName</div>
+<div class="tip" id="fs42">val xnw : s:string -&gt; XName<br /><br />Full name: Worldbank.xnw</div>
+<div class="tip" id="fs43">val c : XElement<br /><br />Full name: Worldbank.c</div>
+<div class="tip" id="fs44">XContainer.Element(name: XName) : XElement</div>
+<div class="tip" id="fs45">XElement.Attribute(name: XName) : XAttribute</div>
+<div class="tip" id="fs46">val regions : string list<br /><br />Full name: Worldbank.regions</div>
+<div class="tip" id="fs47">val r : XElement</div>
+<div class="tip" id="fs48">val getIndicatorData : ind:string -&gt; date:string -&gt; page:int -&gt; Async&lt;XDocument list&gt;<br /><br />Full name: Worldbank.getIndicatorData</div>
+<div class="tip" id="fs49">val ind : string</div>
+<div class="tip" id="fs50">val date : string</div>
+<div class="tip" id="fs51">val page : int</div>
+<div class="tip" id="fs52">val doc : XDocument</div>
+<div class="tip" id="fs53">val pages : int</div>
+<div class="tip" id="fs54">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs55">val rest : XDocument list</div>
+<div class="tip" id="fs56">val frst : XDocument list<br /><br />Full name: Worldbank.frst</div>
+<div class="tip" id="fs57">val downloadAll : Async&lt;XDocument list []&gt;<br /><br />Full name: Worldbank.downloadAll</div>
+<div class="tip" id="fs58">static member Async.Parallel : computations:seq&lt;Async&lt;&#39;T&gt;&gt; -&gt; Async&lt;&#39;T []&gt;</div>
+<div class="tip" id="fs59">val year : string</div>
+<div class="tip" id="fs60">val alldata : XDocument list []<br /><br />Full name: Worldbank.alldata</div>
+<div class="tip" id="fs61">val readSingleValue : node:XElement -&gt; ((int * string) * string) list<br /><br />Full name: Worldbank.readSingleValue</div>
+<div class="tip" id="fs62">val node : XElement</div>
+<div class="tip" id="fs63">Multiple items<br />type XElement =<br />&#160;&#160;inherit XContainer<br />&#160;&#160;new : name:XName -&gt; XElement + 4 overloads<br />&#160;&#160;member AncestorsAndSelf : unit -&gt; IEnumerable&lt;XElement&gt; + 1 overload<br />&#160;&#160;member Attribute : name:XName -&gt; XAttribute<br />&#160;&#160;member Attributes : unit -&gt; IEnumerable&lt;XAttribute&gt; + 1 overload<br />&#160;&#160;member DescendantNodesAndSelf : unit -&gt; IEnumerable&lt;XNode&gt;<br />&#160;&#160;member DescendantsAndSelf : unit -&gt; IEnumerable&lt;XElement&gt; + 1 overload<br />&#160;&#160;member FirstAttribute : XAttribute<br />&#160;&#160;member GetDefaultNamespace : unit -&gt; XNamespace<br />&#160;&#160;member GetNamespaceOfPrefix : prefix:string -&gt; XNamespace<br />&#160;&#160;member GetPrefixOfNamespace : ns:XNamespace -&gt; string<br />&#160;&#160;...<br /><br />Full name: System.Xml.Linq.XElement<br /><br />--------------------<br />XElement(name: XName) : unit<br />XElement(other: XElement) : unit<br />XElement(other: XStreamingElement) : unit<br />XElement(name: XName, content: obj) : unit<br />XElement(name: XName, params content: obj []) : unit</div>
+<div class="tip" id="fs64">val value : string</div>
+<div class="tip" id="fs65">val country : string</div>
+<div class="tip" id="fs66">val date : int</div>
+<div class="tip" id="fs67">val readValues : data:XDocument list -&gt; ((int * string) * string) list<br /><br />Full name: Worldbank.readValues</div>
+<div class="tip" id="fs68">val data : XDocument list</div>
+<div class="tip" id="fs69">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
+<div class="tip" id="fs70">val page : XDocument</div>
+<div class="tip" id="fs71">Multiple items<br />type MeasureAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; MeasureAttribute<br /><br />Full name: Microsoft.FSharp.Core.MeasureAttribute<br /><br />--------------------<br />new : unit -&gt; MeasureAttribute</div>
+<div class="tip" id="fs72">[&lt;Measure&gt;]<br />type km<br /><br />Full name: Worldbank.km</div>
+<div class="tip" id="fs73">[&lt;Measure&gt;]<br />type percent<br /><br />Full name: Worldbank.percent</div>
+<div class="tip" id="fs74">val areas : Map&lt;(int * string),float&lt;km ^ 2&gt;&gt;<br /><br />Full name: Worldbank.areas</div>
+<div class="tip" id="fs75">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs76">val concat : lists:seq&lt;&#39;T list&gt; -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.concat</div>
+<div class="tip" id="fs77">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.map</div>
+<div class="tip" id="fs78">val k : int * string</div>
+<div class="tip" id="fs79">val v : string</div>
+<div class="tip" id="fs80">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs81">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member ContainsKey : key:&#39;Key -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member Remove : key:&#39;Key -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Map&lt;_,_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
+<div class="tip" id="fs82">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofSeq</div>
+<div class="tip" id="fs83">val forests : Map&lt;(int * string),float&lt;percent&gt;&gt;<br /><br />Full name: Worldbank.forests</div>
+<div class="tip" id="fs84">val calculateForests : area:float&lt;km ^ 2&gt; -&gt; forest:float&lt;percent&gt; -&gt; float&lt;km ^ 2&gt;<br /><br />Full name: Worldbank.calculateForests</div>
+<div class="tip" id="fs85">val area : float&lt;km ^ 2&gt;</div>
+<div class="tip" id="fs86">val forest : float&lt;percent&gt;</div>
+<div class="tip" id="fs87">val years : int []<br /><br />Full name: Worldbank.years</div>
+<div class="tip" id="fs88">val dataAvailable : key:string -&gt; bool<br /><br />Full name: Worldbank.dataAvailable</div>
+<div class="tip" id="fs89">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs90">val forall : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; bool<br /><br />Full name: Microsoft.FSharp.Collections.Seq.forall</div>
+<div class="tip" id="fs91">val y : int</div>
+<div class="tip" id="fs92">member Map.ContainsKey : key:&#39;Key -&gt; bool</div>
+<div class="tip" id="fs93">val getData : y:int -&gt; float&lt;km ^ 2&gt; list<br /><br />Full name: Worldbank.getData</div>
+<div class="tip" id="fs94">val name : string</div>
+<div class="tip" id="fs95">val stats : (int * float&lt;km ^ 2&gt; list) []<br /><br />Full name: Worldbank.stats</div>
+<div class="tip" id="fs96">val names : string list<br /><br />Full name: Worldbank.names</div>
+<div class="tip" id="fs97">val filter : predicate:(&#39;T -&gt; bool) -&gt; list:&#39;T list -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.filter</div>
+<div class="tip" id="fs98">namespace FnuPlot</div>
+<div class="tip" id="fs99">namespace System.Drawing</div>
+<div class="tip" id="fs100">val path : string<br /><br />Full name: Worldbank.path</div>
+<div class="tip" id="fs101">val gp : GnuPlot<br /><br />Full name: Worldbank.gp</div>
+<div class="tip" id="fs102">Multiple items<br />type GnuPlot =<br />&#160;&#160;interface IDisposable<br />&#160;&#160;new : ?path:string -&gt; GnuPlot<br />&#160;&#160;member private Dispose : disposing:bool -&gt; unit<br />&#160;&#160;override Finalize : unit -&gt; unit<br />&#160;&#160;member Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : data:Series * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : func:string * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member SendCommand : str:string -&gt; unit<br />&#160;&#160;member Set : ?style:Style * ?range:Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit<br />&#160;&#160;member Unset : ?style:Style * ?range:Range -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FnuPlot.GnuPlot<br /><br />--------------------<br />new : ?path:string -&gt; GnuPlot</div>
+<div class="tip" id="fs103">member GnuPlot.Set : ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit</div>
+<div class="tip" id="fs104">Multiple items<br />type Output =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : output:OutputType * ?font:string -&gt; Output<br /><br />Full name: FnuPlot.Output<br /><br />--------------------<br />new : output:OutputType * ?font:string -&gt; Output</div>
+<div class="tip" id="fs105">union case OutputType.X11: OutputType</div>
+<div class="tip" id="fs106">member GnuPlot.Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : data:Series * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : func:string * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit</div>
+<div class="tip" id="fs107">Multiple items<br />type Series =<br />&#160;&#160;new : plot:string * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Function : func:string * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member TimeY : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member XY : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:string * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs108">static member Series.Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series</div>
+<div class="tip" id="fs109">val year : int</div>
+<div class="tip" id="fs110">val values : float&lt;km ^ 2&gt; list</div>
+<div class="tip" id="fs111">static member Series.Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs112">Multiple items<br />type Style =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : ?fill:FillStyle -&gt; Style<br /><br />Full name: FnuPlot.Style<br /><br />--------------------<br />new : ?fill:FillStyle -&gt; Style</div>
+<div class="tip" id="fs113">union case FillStyle.Solid: FillStyle</div>
+<div class="tip" id="fs114">val RangeY : Internal.RangeImplY<br /><br />Full name: FnuPlot.Ranges.RangeY</div>
+<div class="tip" id="fs115">Multiple items<br />type Titles =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : ?x:string list * ?xrotate:int * ?y:string list * ?yrotate:int -&gt; Titles<br /><br />Full name: FnuPlot.Titles<br /><br />--------------------<br />new : ?x:string list * ?xrotate:int * ?y:string list * ?yrotate:int -&gt; Titles</div>
+<div class="tip" id="fs116">argument x : string list option</div>
+<div class="tip" id="fs117">val colors : Color list<br /><br />Full name: Worldbank.colors</div>
+<div class="tip" id="fs118">type Color =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member A : byte<br />&#160;&#160;&#160;&#160;member B : byte<br />&#160;&#160;&#160;&#160;member Equals : obj:obj -&gt; bool<br />&#160;&#160;&#160;&#160;member G : byte<br />&#160;&#160;&#160;&#160;member GetBrightness : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetHue : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member GetSaturation : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member IsKnownColor : bool<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.Drawing.Color</div>
+<div class="tip" id="fs119">property Color.OliveDrab: Color</div>
+<div class="tip" id="fs120">property Color.SteelBlue: Color</div>
+<div class="tip" id="fs121">property Color.Goldenrod: Color</div>
+<div class="tip" id="fs122">val clr : Color</div>
+<div class="tip" id="fs123">val zip : source1:seq&lt;&#39;T1&gt; -&gt; source2:seq&lt;&#39;T2&gt; -&gt; seq&lt;&#39;T1 * &#39;T2&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.zip</div>
+<div class="tip" id="fs124">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+
+        </div>
+        <div class="span3">
+          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FnuPlot</li>
+            <li><a href="/FnuPlot/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FnuPlot">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/FnuPlot">Source Code on GitHub</a></li>
+            <li><a href="/FnuPlot/license.html">License</a></li>
+            <li><a href="/FnuPlot/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FnuPlot/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/FnuPlot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

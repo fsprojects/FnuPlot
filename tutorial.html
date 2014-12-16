@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Getting started with FnuPlot
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="An F# wrapper for the gnuplot charting library"/>
+    <meta name="author" content="Tomas Petricek"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FnuPlot/content/style.css" />
+    <script type="text/javascript" src="/FnuPlot/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>Getting started with FnuPlot</h1>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">bin</span><span class="s">/</span><span class="s">FnuPlot</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FnuPlot</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Drawing</span></pre>
+</td>
+</tr>
+</table>
+
+<p>First</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Create gnuplot process</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">gp</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">GnuPlot</span>()
+<span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">Set</span>(<span class="i">output</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">Output</span>(<span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">X11</span>, <span class="i">font</span><span class="o">=</span><span class="s">&quot;</span><span class="s">arial</span><span class="s">&quot;</span>))
+
+<span class="c">// Draw a simple function specified as a string</span>
+<span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">Plot</span>(<span class="s">&quot;</span><span class="s">sin</span><span class="s">(</span><span class="s">x</span><span class="s">)</span><span class="s">&quot;</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>Lines</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Draw plot using a single series of data</span>
+<span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">Lines</span> [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>]) 
+
+<span class="c">// Specify additional properties of the series </span>
+<span onmouseout="hideTip(event, 'fs4', 16)" onmouseover="showTip(event, 'fs4', 16)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs10', 18)" onmouseover="showTip(event, 'fs10', 18)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="i">Lines</span>( <span class="i">title</span><span class="o">=</span><span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">plot</span><span class="s">&quot;</span>, <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 20)" onmouseover="showTip(event, 'fs12', 20)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="i">OliveDrab</span>, 
+                      <span class="i">weight</span> <span class="o">=</span> <span class="n">3</span>, <span class="i">data</span> <span class="o">=</span> [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>]) )</pre>
+</td>
+</tr>
+</table>
+
+<p>Histogram</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Histogram is another directly supported type of series                                            </span>
+<span onmouseout="hideTip(event, 'fs4', 22)" onmouseover="showTip(event, 'fs4', 22)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs10', 24)" onmouseover="showTip(event, 'fs10', 24)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="i">Histogram</span>( [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>], <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">plot</span><span class="s">&quot;</span>, <span class="i">fill</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">Solid</span>, 
+                          <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 27)" onmouseover="showTip(event, 'fs12', 27)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">SteelBlue</span>, <span class="i">weight</span> <span class="o">=</span> <span class="n">3</span>) )</pre>
+</td>
+</tr>
+</table>
+
+<p>Combining</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Plot multiple different series into a single plot</span>
+<span onmouseout="hideTip(event, 'fs4', 29)" onmouseover="showTip(event, 'fs4', 29)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 30)" onmouseover="showTip(event, 'fs9', 30)" class="i">Plot</span>
+  [ <span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 32)" onmouseover="showTip(event, 'fs17', 32)" class="i">Function</span>( <span class="s">&quot;</span><span class="s">sin</span><span class="s">(</span><span class="s">x</span><span class="s">*</span><span class="s">3</span><span class="s">)</span><span class="s"> </span><span class="s">+</span><span class="s"> </span><span class="s">3</span><span class="s">&quot;</span>, <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Sinus</span><span class="s">&quot;</span>, 
+                     <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 34)" onmouseover="showTip(event, 'fs18', 34)" class="i">Goldenrod</span>, <span class="i">weight</span> <span class="o">=</span> <span class="n">3</span>)
+    <span onmouseout="hideTip(event, 'fs10', 35)" onmouseover="showTip(event, 'fs10', 35)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 36)" onmouseover="showTip(event, 'fs11', 36)" class="i">Lines</span>( [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>], <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">plot</span><span class="s">&quot;</span>, 
+                  <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 37)" onmouseover="showTip(event, 'fs12', 37)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 38)" onmouseover="showTip(event, 'fs13', 38)" class="i">OliveDrab</span>, <span class="i">weight</span> <span class="o">=</span> <span class="n">3</span>)
+    <span onmouseout="hideTip(event, 'fs10', 39)" onmouseover="showTip(event, 'fs10', 39)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 40)" onmouseover="showTip(event, 'fs14', 40)" class="i">Histogram</span>( [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>], <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">plot</span><span class="s">&quot;</span>, <span class="i">fill</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 41)" onmouseover="showTip(event, 'fs15', 41)" class="i">Solid</span>, 
+                      <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 42)" onmouseover="showTip(event, 'fs12', 42)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 43)" onmouseover="showTip(event, 'fs16', 43)" class="i">SteelBlue</span>, <span class="i">weight</span> <span class="o">=</span> <span class="n">3</span>) ]</pre>
+</td>
+</tr>
+</table>
+
+<p>X Y pairs</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Plot (x,y) pairs</span>
+<span onmouseout="hideTip(event, 'fs4', 44)" onmouseover="showTip(event, 'fs4', 44)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 45)" onmouseover="showTip(event, 'fs9', 45)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs10', 46)" onmouseover="showTip(event, 'fs10', 46)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 47)" onmouseover="showTip(event, 'fs19', 47)" class="i">XY</span>( [(<span class="n">0.0</span>,<span class="n">1.0</span>);(<span class="n">0.2</span>,<span class="n">2.0</span>);(<span class="n">2.0</span>,<span class="n">1.5</span>);(<span class="n">2.1</span>,<span class="n">3.0</span>)] , <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">xy</span><span class="s"> </span><span class="s">plot</span><span class="s">&quot;</span>))</pre>
+</td>
+</tr>
+</table>
+
+<p>Time series</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 48)" onmouseover="showTip(event, 'fs2', 48)" class="i">System</span>
+<span onmouseout="hideTip(event, 'fs4', 49)" onmouseover="showTip(event, 'fs4', 49)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 50)" onmouseover="showTip(event, 'fs9', 50)" class="i">Plot</span>(<span onmouseout="hideTip(event, 'fs10', 51)" onmouseover="showTip(event, 'fs10', 51)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 52)" onmouseover="showTip(event, 'fs20', 52)" class="i">TimeY</span>( [(<span onmouseout="hideTip(event, 'fs21', 53)" onmouseover="showTip(event, 'fs21', 53)" class="i">DateTime</span>(<span class="n">1900</span>,<span class="n">1</span>,<span class="n">1</span>),<span class="n">1.0</span>);(<span onmouseout="hideTip(event, 'fs21', 54)" onmouseover="showTip(event, 'fs21', 54)" class="i">DateTime</span>(<span class="n">1950</span>,<span class="n">1</span>,<span class="n">1</span>),<span class="n">2.0</span>);(<span onmouseout="hideTip(event, 'fs21', 55)" onmouseover="showTip(event, 'fs21', 55)" class="i">DateTime</span>(<span class="n">1980</span>,<span class="n">1</span>,<span class="n">21</span>),<span class="n">1.5</span>);(<span onmouseout="hideTip(event, 'fs21', 56)" onmouseover="showTip(event, 'fs21', 56)" class="i">DateTime</span>(<span class="n">2014</span>,<span class="n">1</span>,<span class="n">1</span>),<span class="n">3.0</span>)], <span class="i">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Some</span><span class="s"> </span><span class="s">time</span><span class="s"> </span><span class="s">series</span><span class="s">&quot;</span> ))</pre>
+</td>
+</tr>
+</table>
+
+<h2>Specifying properties</h2>
+
+<p>Specify range</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs4', 57)" onmouseover="showTip(event, 'fs4', 57)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 58)" onmouseover="showTip(event, 'fs9', 58)" class="i">Plot</span>(
+  <span class="i">range</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 59)" onmouseover="showTip(event, 'fs22', 59)" class="i">RangeY</span><span class="o">.</span>[<span class="o">-</span><span class="n">10.0</span> <span class="o">..</span> <span class="n">10.0</span> ],
+  <span class="i">data</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 60)" onmouseover="showTip(event, 'fs10', 60)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 61)" onmouseover="showTip(event, 'fs11', 61)" class="i">Lines</span> [<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>])  </pre>
+</td>
+</tr>
+</table>
+
+<p>SPecify range and style</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs4', 62)" onmouseover="showTip(event, 'fs4', 62)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 63)" onmouseover="showTip(event, 'fs9', 63)" class="i">Plot</span>(
+  <span class="i">style</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 64)" onmouseover="showTip(event, 'fs23', 64)" class="i">Style</span>(<span class="i">fill</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs15', 65)" onmouseover="showTip(event, 'fs15', 65)" class="i">Solid</span>),
+  <span class="i">range</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 66)" onmouseover="showTip(event, 'fs24', 66)" class="i">Range</span><span class="o">.</span>[<span class="o">-</span><span class="n">0.5</span> <span class="o">..</span> <span class="n">3.7</span>, <span class="n">0.0</span> <span class="o">..</span> <span class="n">6.0</span>],
+  <span class="i">data</span> <span class="o">=</span> 
+    [ <span onmouseout="hideTip(event, 'fs10', 67)" onmouseover="showTip(event, 'fs10', 67)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 68)" onmouseover="showTip(event, 'fs14', 68)" class="i">Histogram</span>([<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>], <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 69)" onmouseover="showTip(event, 'fs12', 69)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 70)" onmouseover="showTip(event, 'fs13', 70)" class="i">OliveDrab</span>)
+      <span onmouseout="hideTip(event, 'fs10', 71)" onmouseover="showTip(event, 'fs10', 71)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 72)" onmouseover="showTip(event, 'fs14', 72)" class="i">Histogram</span>([<span class="n">1.5</span>; <span class="n">2.0</span>; <span class="n">2.5</span>; <span class="n">4.5</span>], <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 73)" onmouseover="showTip(event, 'fs12', 73)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 74)" onmouseover="showTip(event, 'fs16', 74)" class="i">SteelBlue</span>) ])</pre>
+</td>
+</tr>
+</table>
+
+<p>COnfiguring things</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// We can also change global properties using the &#39;Set&#39; method</span>
+<span onmouseout="hideTip(event, 'fs4', 75)" onmouseover="showTip(event, 'fs4', 75)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 76)" onmouseover="showTip(event, 'fs6', 76)" class="i">Set</span>(<span class="i">style</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 77)" onmouseover="showTip(event, 'fs23', 77)" class="i">Style</span>(<span class="i">fill</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 78)" onmouseover="showTip(event, 'fs15', 78)" class="i">Solid</span>), <span class="i">range</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 79)" onmouseover="showTip(event, 'fs24', 79)" class="i">Range</span><span class="o">.</span>[<span class="o">-</span><span class="n">0.5</span> <span class="o">..</span> <span class="n">3.7</span>, <span class="n">0.0</span> <span class="o">..</span> <span class="n">6.0</span>])
+<span class="c">// And we can set output to a png fole</span>
+<span onmouseout="hideTip(event, 'fs4', 80)" onmouseover="showTip(event, 'fs4', 80)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 81)" onmouseover="showTip(event, 'fs6', 81)" class="i">Set</span>(<span class="i">output</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 82)" onmouseover="showTip(event, 'fs7', 82)" class="i">Output</span>(<span onmouseout="hideTip(event, 'fs25', 83)" onmouseover="showTip(event, 'fs25', 83)" class="i">Png</span>(<span class="s">&quot;</span><span class="s">/</span><span class="s">home</span><span class="s">/</span><span class="s">tomas</span><span class="s">/</span><span class="s">Temp</span><span class="s">/</span><span class="s">test1</span><span class="s">.</span><span class="s">png</span><span class="s">&quot;</span>)))
+
+<span class="c">// The setting is then used by all plots</span>
+<span onmouseout="hideTip(event, 'fs4', 84)" onmouseover="showTip(event, 'fs4', 84)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 85)" onmouseover="showTip(event, 'fs9', 85)" class="i">Plot</span>
+  [ <span onmouseout="hideTip(event, 'fs10', 86)" onmouseover="showTip(event, 'fs10', 86)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 87)" onmouseover="showTip(event, 'fs14', 87)" class="i">Histogram</span>([<span class="n">2.0</span>; <span class="n">1.0</span>; <span class="n">2.0</span>; <span class="n">5.0</span>], <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 88)" onmouseover="showTip(event, 'fs12', 88)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 89)" onmouseover="showTip(event, 'fs13', 89)" class="i">OliveDrab</span>)
+    <span onmouseout="hideTip(event, 'fs10', 90)" onmouseover="showTip(event, 'fs10', 90)" class="i">Series</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 91)" onmouseover="showTip(event, 'fs14', 91)" class="i">Histogram</span>([<span class="n">1.5</span>; <span class="n">2.0</span>; <span class="n">2.5</span>; <span class="n">4.5</span>], <span class="i">lineColor</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 92)" onmouseover="showTip(event, 'fs12', 92)" class="i">Color</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 93)" onmouseover="showTip(event, 'fs16', 93)" class="i">SteelBlue</span>) ]
+
+<span onmouseout="hideTip(event, 'fs4', 94)" onmouseover="showTip(event, 'fs4', 94)" class="i">gp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 95)" onmouseover="showTip(event, 'fs6', 95)" class="i">Set</span>(<span class="i">output</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs7', 96)" onmouseover="showTip(event, 'fs7', 96)" class="i">Output</span>(<span onmouseout="hideTip(event, 'fs8', 97)" onmouseover="showTip(event, 'fs8', 97)" class="i">X11</span>, <span class="i">font</span><span class="o">=</span><span class="s">&quot;</span><span class="s">arial</span><span class="s">&quot;</span>))</pre>
+</td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">namespace FnuPlot</div>
+<div class="tip" id="fs2">namespace System</div>
+<div class="tip" id="fs3">namespace System.Drawing</div>
+<div class="tip" id="fs4">val gp : GnuPlot<br /><br />Full name: Tutorial.gp</div>
+<div class="tip" id="fs5">Multiple items<br />type GnuPlot =<br />&#160;&#160;interface IDisposable<br />&#160;&#160;new : ?path:string -&gt; GnuPlot<br />&#160;&#160;member private Dispose : disposing:bool -&gt; unit<br />&#160;&#160;override Finalize : unit -&gt; unit<br />&#160;&#160;member Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : data:Series * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : func:string * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member SendCommand : str:string -&gt; unit<br />&#160;&#160;member Set : ?style:Style * ?range:Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit<br />&#160;&#160;member Unset : ?style:Style * ?range:Range -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FnuPlot.GnuPlot<br /><br />--------------------<br />new : ?path:string -&gt; GnuPlot</div>
+<div class="tip" id="fs6">member GnuPlot.Set : ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit</div>
+<div class="tip" id="fs7">Multiple items<br />type Output =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : output:OutputType * ?font:string -&gt; Output<br /><br />Full name: FnuPlot.Output<br /><br />--------------------<br />new : output:OutputType * ?font:string -&gt; Output</div>
+<div class="tip" id="fs8">union case OutputType.X11: OutputType</div>
+<div class="tip" id="fs9">member GnuPlot.Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : data:Series * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : func:string * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit</div>
+<div class="tip" id="fs10">Multiple items<br />type Series =<br />&#160;&#160;new : plot:string * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Function : func:string * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member TimeY : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member XY : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:string * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs11">static member Series.Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series</div>
+<div class="tip" id="fs12">type Color =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member A : byte<br />&#160;&#160;&#160;&#160;member B : byte<br />&#160;&#160;&#160;&#160;member Equals : obj:obj -&gt; bool<br />&#160;&#160;&#160;&#160;member G : byte<br />&#160;&#160;&#160;&#160;member GetBrightness : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetHue : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member GetSaturation : unit -&gt; float32<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member IsKnownColor : bool<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.Drawing.Color</div>
+<div class="tip" id="fs13">property Color.OliveDrab: Color</div>
+<div class="tip" id="fs14">static member Series.Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs15">union case FillStyle.Solid: FillStyle</div>
+<div class="tip" id="fs16">property Color.SteelBlue: Color</div>
+<div class="tip" id="fs17">static member Series.Function : func:string * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs18">property Color.Goldenrod: Color</div>
+<div class="tip" id="fs19">static member Series.XY : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series</div>
+<div class="tip" id="fs20">static member Series.TimeY : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series</div>
+<div class="tip" id="fs21">Multiple items<br />type DateTime =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;new : ticks:int64 -&gt; DateTime + 10 overloads<br />&#160;&#160;&#160;&#160;member Add : value:TimeSpan -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddDays : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddHours : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMilliseconds : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMinutes : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddMonths : months:int -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddSeconds : value:float -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddTicks : value:int64 -&gt; DateTime<br />&#160;&#160;&#160;&#160;member AddYears : value:int -&gt; DateTime<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.DateTime<br /><br />--------------------<br />DateTime()<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(ticks: int64) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(ticks: int64, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, calendar: Globalization.Calendar) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, calendar: Globalization.Calendar) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />DateTime(year: int, month: int, day: int, hour: int, minute: int, second: int, millisecond: int, kind: DateTimeKind) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em></div>
+<div class="tip" id="fs22">val RangeY : Internal.RangeImplY<br /><br />Full name: FnuPlot.Ranges.RangeY</div>
+<div class="tip" id="fs23">Multiple items<br />type Style =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : ?fill:FillStyle -&gt; Style<br /><br />Full name: FnuPlot.Style<br /><br />--------------------<br />new : ?fill:FillStyle -&gt; Style</div>
+<div class="tip" id="fs24">val Range : Internal.RangeImplXY<br /><br />Full name: FnuPlot.Ranges.Range</div>
+<div class="tip" id="fs25">union case OutputType.Png: string -&gt; OutputType</div>
+
+        </div>
+        <div class="span3">
+          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FnuPlot</li>
+            <li><a href="/FnuPlot/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FnuPlot">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/FnuPlot">Source Code on GitHub</a></li>
+            <li><a href="/FnuPlot/license.html">License</a></li>
+            <li><a href="/FnuPlot/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FnuPlot/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/FnuPlot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
