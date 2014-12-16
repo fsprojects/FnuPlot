@@ -1,4 +1,4 @@
-#### 0.0.2-beta - December 16, 2014
+#### 0.0.3-beta - December 16, 2014
 * Publish documentation
 
 #### 0.0.2-beta - December 16, 2014
