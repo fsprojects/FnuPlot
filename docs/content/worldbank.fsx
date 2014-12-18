@@ -2,6 +2,30 @@
 Visualizng WorldBank data
 =========================
 
+
+let wb = WorldBankData.GetDataContext()
+let indCode = wb.Countries.World.Indicators.``Population, total``.IndicatorCode
+let key = "hq8byg8k7t2fxc6hp7jmbx26"
+
+let getPopulation year page = 
+  let range = sprintf "%d:%d" year year
+  Http.RequestString
+    ( "http://api.worldbank.org/countries/indicators/" + indCode, 
+      query=["api_key", key; "per_page", "100"; "date", range; "page", string page] )
+
+File.WriteAllText("C:/temp/sample.xml", getPopulation 2000 1)
+
+type Sample = XmlProvider<"C:/temp/sample.xml">
+let s = Sample.GetSample()
+for p in 1 .. s.Pages do
+  printfn "\n!!! PAGE %d" p
+  let data = getPopulation 2000 p
+  let page = Sample.Parse(data)
+  for country in page.Datas do
+    printfn "%s (%A)" country.Country.Value country.Value
+  
+
+
 Downloading data
 ----------------
 
@@ -20,6 +44,7 @@ Downloading data from the World Bank using REST API
 let worldBankDownload req args = async {
   let key = "hq8byg8k7t2fxc6hp7jmbx26"
   let url = sprintf "http://api.worldbank.org/%s?per_page=100&api_key=%s%s" req key args
+  printfn "%A" url
   let req = HttpWebRequest.Create(url)
   let! resp = req.AsyncGetResponse()
   use response = resp
