@@ -1,20 +1,27 @@
-FSharp.GnuPlot
-==============
+FnuPlot: A lightweigtht F# wrapper for gnuplot
+==============================================
 
-An F# wrapper for the gnuplot charting library
+FnuPlot is a lightweight wrapper for the [gnuplot](http://www.gnuplot.info/) charting and 
+visualization library. Since gnuplot is cross-platform (works on Mac, Linux and Windows),
+you can use this library on all of the platforms mentioned above.
 
-Requires gnuplot to be installed separately: http://sourceforge.net/projects/gnuplot/files/
+FnuPlot provides two features on top of gnuplot. First, it hides the gnuplot process, so you 
+do not have to start and control the process; you can use the `GnuPlot` type and call it using
+`SendCommand`. Second, FnuPlot implements a simple domain-specific language for building a 
+number of common chart types.
 
-The samples folder shows how to use it in F# interactive. To use it in a compiled F# project:
-* Copy src/gnuplot.fs into your project
-* Create a plot like this:
+More information
+----------------
 
-```fsharp
-open FSharp.GnuPlot
-let gp = new GnuPlot()
-gp.Plot(Series.XY( [(0.0,1.0);(0.2,2.0);(2.0,1.5);(2.1,3.0)] , title = "Some xy plot"))
-```
-If the gnuplot folder is not in your system path, you may need to specify it like this:
-```fsharp
-let gp = new GnuPlot("C:\\Program Files (x86)\\gnuplot\\bin\\gnuplot.exe")
-```
+For more information about FnuPlot, please refer to the FnuPlot documentation:
+
+  * [FnuPlot documentation](http://fsprojects.github.io/FnuPlot) is the project home page
+    with examples, API reference and more information.
+
+  * Read the [Getting started tutorial](http://fsprojects.github.io/FnuPlot/tutorial.html), which contains more detailed description of 
+   different charts supported by the library. The [Visualizng population using WorldBank](http://fsprojects.github.io/FnuPlot/worldbank.html)
+   tutorial shows how to create the chart above.
+
+ * [API Reference](http://fsprojects.github.io/FnuPlot/reference/index.html) contains automatically generated documentation for all types, 
+   modules and functions in the library. This includes additional brief samples on using most of the
+   functions.
