@@ -1,4 +1,5 @@
 (*** hide ***)
+#I "../../bin"
 let pathOpt = 
   [ // MAINTAINERS: Feel free to add other paths where Gnuplot lives on your machine..
     @"C:\Programs\Data\gnuplot\bin\gnuplot.exe" ]
@@ -34,7 +35,7 @@ Once you have the reference, you can either add `FnuPlot.dll` to your reference 
 a compiled project) or use `#load "FnuPlot.fs"` to load the FnuPlot file obtained using 
 Paket. Alternatively, you can use `#r` if you're referencing FnuPlot using NuGet package:
 *)
-#r "../../bin/FnuPlot.dll"
+#r "FnuPlot.dll"
 open FnuPlot
 open System
 open System.Drawing

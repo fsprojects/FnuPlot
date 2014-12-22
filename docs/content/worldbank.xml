@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wb:data page="1" pages="3" per_page="100" total="248" xmlns:wb="http://www.worldbank.org">
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="1A">Arab World</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>277561423</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="S3">Caribbean small states</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>6431380</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="B8">Central Europe and the Baltics</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>108405522</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="Z4">East Asia &amp; Pacific (all income levels)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>2043379556</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="4E">East Asia &amp; Pacific (developing only)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1812175348</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XC">Euro area</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>317608111</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="Z7">Europe &amp; Central Asia (all income levels)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>862094365</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="7E">Europe &amp; Central Asia (developing only)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>256285094</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="EU">European Union</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>487975692</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="F1">Fragile and conflict affected situations</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>330080933</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XE">Heavily indebted poor countries (HIPC)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>472726491</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XD">High income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1210722389</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XR">High income: nonOECD</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>231667801</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XS">High income: OECD</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>979054588</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ZJ">Latin America &amp; Caribbean (all income levels)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>525299778</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XJ">Latin America &amp; Caribbean (developing only)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>500304988</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XL">Least developed countries: UN classification</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>663076857</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XO">Low &amp; middle income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>4891279561</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XM">Low income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>636658396</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XN">Lower middle income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>2089438289</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ZQ">Middle East &amp; North Africa (all income levels)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>311791217</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XQ">Middle East &amp; North Africa (developing only)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>276589220</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XP">Middle income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>4254621165</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XU">North America</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>312993944</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XY">Not classified</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value />
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="OE">OECD members</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1156313649</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="S4">Other small states</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>16222082</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="S2">Pacific island small states</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1952589</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="S1">Small states</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>24606051</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="8S">South Asia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1382195669</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ZG">Sub-Saharan Africa (all income levels)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>664247421</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ZF">Sub-Saharan Africa (developing only)</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>663729242</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="XT">Upper middle income</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>2165182876</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="1W">World</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>6102001950</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AF">Afghanistan</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>20595360</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AL">Albania</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3089027</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="DZ">Algeria</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>31719449</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AS">American Samoa</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>57522</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AD">Andorra</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>65399</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AO">Angola</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>13924930</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AG">Antigua and Barbuda</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>77648</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AR">Argentina</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>36903067</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AM">Armenia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3076098</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AW">Aruba</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>90858</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AU">Australia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>19153000</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AT">Austria</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8011566</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="AZ">Azerbaijan</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8048600</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BS">Bahamas, The</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>297759</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BH">Bahrain</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>668239</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BD">Bangladesh</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>132383265</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BB">Barbados</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>267190</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BY">Belarus</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>10005000</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BE">Belgium</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>10251250</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BZ">Belize</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>238586</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BJ">Benin</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>6949366</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BM">Bermuda</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>61833</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BT">Bhutan</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>564350</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BO">Bolivia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8495271</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BA">Bosnia and Herzegovina</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3834364</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BW">Botswana</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1755375</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BR">Brazil</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>174504898</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BN">Brunei Darussalam</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>331801</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BG">Bulgaria</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8170172</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BF">Burkina Faso</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>11607944</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="BI">Burundi</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>6674286</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CV">Cabo Verde</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>442426</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="KH">Cambodia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>12222871</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CM">Cameroon</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>15927713</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CA">Canada</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>30769700</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="KY">Cayman Islands</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>41685</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CF">Central African Republic</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3638316</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="TD">Chad</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8301151</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="JG">Channel Islands</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>148725</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CL">Chile</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>15454402</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CN">China</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1262645000</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CO">Colombia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>39897984</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="KM">Comoros</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>528312</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CD">Congo, Dem. Rep.</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>46949244</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CG">Congo, Rep.</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3126204</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CR">Costa Rica</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3929588</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CI">Cote d'Ivoire</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>16131332</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="HR">Croatia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>4426000</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CU">Cuba</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>11138416</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CW">Curacao</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>133860</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CY">Cyprus</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>943287</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="CZ">Czech Republic</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>10255063</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="DK">Denmark</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>5339616</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="DJ">Djibouti</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>722887</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="DM">Dominica</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>69679</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="DO">Dominican Republic</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>8663421</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="EC">Ecuador</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>12533087</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="EG">Egypt, Arab Rep.</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>66136590</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="SV">El Salvador</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>5958794</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="GQ">Equatorial Guinea</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>518179</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ER">Eritrea</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>3939348</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="EE">Estonia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>1396985</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="ET">Ethiopia</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>66024199</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="FO">Faeroe Islands</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>46491</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="FJ">Fiji</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>811647</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+  <wb:data>
+    <wb:indicator id="SP.POP.TOTL">Population, total</wb:indicator>
+    <wb:country id="FI">Finland</wb:country>
+    <wb:date>2000</wb:date>
+    <wb:value>5176209</wb:value>
+    <wb:decimal>0</wb:decimal>
+  </wb:data>
+</wb:data>
