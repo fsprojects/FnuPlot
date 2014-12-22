@@ -1,5 +1,5 @@
-FnuPlot: A lightweigtht F# wrapper for gnuplot
-==============================================
+Lightweigtht F# wrapper for gnuplot
+===================================
 
 FnuPlot is a lightweight wrapper for the [gnuplot](http://www.gnuplot.info/) charting and 
 visualization library. Since gnuplot is cross-platform (works on Mac, Linux and Windows),
@@ -15,10 +15,10 @@ More information
 
 For more information about FnuPlot, please refer to the FnuPlot documentation:
 
-  * [FnuPlot documentation](http://fsprojects.github.io/FnuPlot) is the project home page
+ * [FnuPlot documentation](http://fsprojects.github.io/FnuPlot) is the project home page
     with examples, API reference and more information.
 
-  * Read the [Getting started tutorial](http://fsprojects.github.io/FnuPlot/tutorial.html), which contains more detailed description of 
+ * Read the [Getting started tutorial](http://fsprojects.github.io/FnuPlot/tutorial.html), which contains more detailed description of 
    different charts supported by the library. The [Visualizng population using WorldBank](http://fsprojects.github.io/FnuPlot/worldbank.html)
    tutorial shows how to create the chart above.
 
