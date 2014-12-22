@@ -1,3 +1,6 @@
+#### 0.0.5-beta - December 22, 2014
+* Adding more documentation, minor code refactoring
+
 #### 0.0.4-beta - December 18, 2014
 * Adding tutorial content
 
