@@ -24,7 +24,10 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://fsharp.org">fsharp.org</a></li>
-          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle"><img height="16" width="16" src="http://fsharp.org/images/thumbs/Deedle.png" /> Deedle</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Charting.png" /> F# Charting</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.png" /> F# Data</a></li>
+          <li><a href="http://fsprojects.github.io/FSharp.Data.Toolbox"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.Toolbox.png" /> F# Data Toolbox</a></li>
         </ul>
         <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
       </div>
@@ -37,6 +40,12 @@
 
 <h1>Output</h1>
 <div class="xmldoc">
+<p>The type can be used to specify output type for <code>gnuplot</code>. The type
+combines a value of <code>OutputType</code> with additional parameters such as fonts.
+For example, to create a PNG, you can use:</p>
+
+<pre><code>gp.Set(output = Output(Png("/temp/test.png")))
+</code></pre>
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -47,15 +56,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '41', 41)" onmouseover="showTip(event, '41', 41)">
+          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
             new(output, font)
           </code>
-          <div class="tip" id="41">
+          <div class="tip" id="17">
             <strong>Signature:</strong> (output:OutputType * font:string option) -&gt; Output<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L185-185" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L226-226" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -67,7 +76,7 @@
 
         </div>
         <div class="span3">
-          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="/FnuPlot/img/logo.png" alt="FnuPlot" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">FnuPlot</li>
             <li><a href="/FnuPlot/index.html">Home page</a></li>
@@ -89,6 +98,12 @@
               </ul>
             </li>
             <li><a href="/FnuPlot/worldbank.html">Analyising WorldBank data</a>
+              <ul class="nav nav-list">
+                <li><a href="/FnuPlot/worldbank.html#Downloading-data-from-the-WorldBank">Using WorldBank REST API</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Processing-downloaded-data">Processing downloaded data</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Visualizing-data-with-gnuplot">Visualizing with gnuplot</a></li>
+              </ul>
+            </li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>

@@ -24,7 +24,10 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://fsharp.org">fsharp.org</a></li>
-          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle"><img height="16" width="16" src="http://fsharp.org/images/thumbs/Deedle.png" /> Deedle</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Charting.png" /> F# Charting</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.png" /> F# Data</a></li>
+          <li><a href="http://fsprojects.github.io/FSharp.Data.Toolbox"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.Toolbox.png" /> F# Data Toolbox</a></li>
         </ul>
         <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
       </div>
@@ -37,9 +40,10 @@
 
 <h1>Data</h1>
 <div class="xmldoc">
-<p>Data that are used  as an argument to the 'Series' type
-For most of the types, we use 'Data', 'Function' is used
-when specifying function as a string</p>
+<p>Data that is passed as an argument to the <code>Series</code> type. For most of the types, 
+we use one of the <code>Data</code> cases; <code>Function</code> is used when specifying function as a string.
+You do not need to create <code>Data</code> values directly. Instead, use <code>Series.XY</code>, <code>Series.Line</code>,
+<code>Series.TimeY</code>, <code>Series.Function</code> and other.</p>
 </div>
   <h3>Union Cases</h3>
   <table class="table table-bordered member-list">
@@ -50,73 +54,79 @@ when specifying function as a string</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
             DataTimeY(seq&lt;DateTime * float&gt;)
           </code>
-          <div class="tip" id="25">
+          <div class="tip" id="4">
             <strong>Signature:</strong> seq&lt;DateTime * float&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L129-129" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L151-151" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Sequence of X and Y coordinates where the Y is <code>DateTime</code>. The <code>DateTime</code> determines the position on the 
+X axis. This cannot be mixed with the other Data type options such as DataXY.</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
             DataXY(seq&lt;float * float&gt;)
           </code>
-          <div class="tip" id="26">
+          <div class="tip" id="5">
             <strong>Signature:</strong> seq&lt;float * float&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L128-128" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L148-148" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Sequence of X and Y coordinates. The first element of the tuple is the X value, the second is the Y value</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '27', 27)" onmouseover="showTip(event, '27', 27)">
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
             DataY(seq&lt;float&gt;)
           </code>
-          <div class="tip" id="27">
+          <div class="tip" id="6">
             <strong>Signature:</strong> seq&lt;float&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L127-127" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L146-146" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Sequence of numerical values. The index of an item is the X value, the number is the Y value</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '28', 28)" onmouseover="showTip(event, '28', 28)">
+          <code onmouseout="hideTip(event, '7', 7)" onmouseover="showTip(event, '7', 7)">
             Function(string)
           </code>
-          <div class="tip" id="28">
+          <div class="tip" id="7">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L130-130" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L154-154" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>A string holding a function of X in the gnuplot format, e.g. <code>sin(x)</code>. The range of X comes from the other 
+Data series on the plot, or from the optional <code>Range</code> object.</p>
+
         </td>
       </tr>
     </tbody>
@@ -124,7 +134,7 @@ when specifying function as a string</p>
 
         </div>
         <div class="span3">
-          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="/FnuPlot/img/logo.png" alt="FnuPlot" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">FnuPlot</li>
             <li><a href="/FnuPlot/index.html">Home page</a></li>
@@ -146,6 +156,12 @@ when specifying function as a string</p>
               </ul>
             </li>
             <li><a href="/FnuPlot/worldbank.html">Analyising WorldBank data</a>
+              <ul class="nav nav-list">
+                <li><a href="/FnuPlot/worldbank.html#Downloading-data-from-the-WorldBank">Using WorldBank REST API</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Processing-downloaded-data">Processing downloaded data</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Visualizing-data-with-gnuplot">Visualizing with gnuplot</a></li>
+              </ul>
+            </li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>

@@ -25,7 +25,10 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://fsharp.org">fsharp.org</a></li>
-          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle"><img height="16" width="16" src="http://fsharp.org/images/thumbs/Deedle.png" /> Deedle</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Charting.png" /> F# Charting</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.png" /> F# Data</a></li>
+          <li><a href="http://fsprojects.github.io/FSharp.Data.Toolbox"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.Toolbox.png" /> F# Data Toolbox</a></li>
         </ul>
         <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
       </div>
@@ -67,7 +70,7 @@ Paket. Alternatively, you can use <code>#r</code> if you're referencing FnuPlot 
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">.</span><span class="s">.</span><span class="s">/</span><span class="s">bin</span><span class="s">/</span><span class="s">FnuPlot</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">FnuPlot</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">FnuPlot</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="i">System</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 13)" onmouseover="showTip(event, 'fs4', 13)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">Drawing</span></pre>
@@ -380,9 +383,9 @@ will apply to all created charts:</p>
 <div class="tip" id="fs10">namespace FnuPlot</div>
 <div class="tip" id="fs11">namespace System.Drawing</div>
 <div class="tip" id="fs12">val gp_default : GnuPlot<br /><br />Full name: Tutorial.gp_default</div>
-<div class="tip" id="fs13">Multiple items<br />type GnuPlot =<br />&#160;&#160;interface IDisposable<br />&#160;&#160;new : ?path:string -&gt; GnuPlot<br />&#160;&#160;member private Dispose : disposing:bool -&gt; unit<br />&#160;&#160;override Finalize : unit -&gt; unit<br />&#160;&#160;member Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : data:Series * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : func:string * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member SendCommand : str:string -&gt; unit<br />&#160;&#160;member Set : ?style:Style * ?range:Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit<br />&#160;&#160;member Unset : ?style:Style * ?range:Range -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FnuPlot.GnuPlot<br /><br />--------------------<br />new : ?path:string -&gt; GnuPlot</div>
+<div class="tip" id="fs13">Multiple items<br />type GnuPlot =<br />&#160;&#160;interface IDisposable<br />&#160;&#160;new : ?path:string -&gt; GnuPlot<br />&#160;&#160;private new : actualPath:string -&gt; GnuPlot<br />&#160;&#160;member private Dispose : disposing:bool -&gt; unit<br />&#160;&#160;override Finalize : unit -&gt; unit<br />&#160;&#160;member Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : data:Series * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member Plot : func:string * ?style:Style * ?range:Range * ?output:Output * ?titles:Titles -&gt; unit<br />&#160;&#160;member SendCommand : str:string -&gt; unit<br />&#160;&#160;member Set : ?style:Style * ?range:Range * ?output:Output * ?titles:Titles * ?TimeFormatX:TimeFormatX -&gt; unit<br />&#160;&#160;...<br /><br />Full name: FnuPlot.GnuPlot<br /><br />--------------------<br />new : ?path:string -&gt; GnuPlot</div>
 <div class="tip" id="fs14">val gp : GnuPlot<br /><br />Full name: Tutorial.gp</div>
-<div class="tip" id="fs15">member GnuPlot.Set : ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles * ?timeFmtX:TimeFmtX -&gt; unit</div>
+<div class="tip" id="fs15">member GnuPlot.Set : ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles * ?TimeFormatX:TimeFormatX -&gt; unit</div>
 <div class="tip" id="fs16">Multiple items<br />type Output =<br />&#160;&#160;interface ICommand<br />&#160;&#160;new : output:OutputType * ?font:string -&gt; Output<br /><br />Full name: FnuPlot.Output<br /><br />--------------------<br />new : output:OutputType * ?font:string -&gt; Output</div>
 <div class="tip" id="fs17">union case OutputType.X11: OutputType</div>
 <div class="tip" id="fs18">member GnuPlot.Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : data:Series * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : func:string * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit</div>
@@ -406,7 +409,7 @@ will apply to all created charts:</p>
 
         </div>
         <div class="span3">
-          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="/FnuPlot/img/logo.png" alt="FnuPlot" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">FnuPlot</li>
             <li><a href="/FnuPlot/index.html">Home page</a></li>
@@ -428,6 +431,12 @@ will apply to all created charts:</p>
               </ul>
             </li>
             <li><a href="/FnuPlot/worldbank.html">Analyising WorldBank data</a>
+              <ul class="nav nav-list">
+                <li><a href="/FnuPlot/worldbank.html#Downloading-data-from-the-WorldBank">Using WorldBank REST API</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Processing-downloaded-data">Processing downloaded data</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Visualizing-data-with-gnuplot">Visualizing with gnuplot</a></li>
+              </ul>
+            </li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>

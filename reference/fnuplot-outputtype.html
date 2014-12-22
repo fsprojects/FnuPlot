@@ -24,7 +24,10 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://fsharp.org">fsharp.org</a></li>
-          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle"><img height="16" width="16" src="http://fsharp.org/images/thumbs/Deedle.png" /> Deedle</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Charting.png" /> F# Charting</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.png" /> F# Data</a></li>
+          <li><a href="http://fsprojects.github.io/FSharp.Data.Toolbox"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.Toolbox.png" /> F# Data Toolbox</a></li>
         </ul>
         <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
       </div>
@@ -37,7 +40,14 @@
 
 <h1>OutputType</h1>
 <div class="xmldoc">
-<p>Various outputs that can be specified to gnuplot</p>
+<p>Various output types that can be specified to gnuplot. Currently, the
+wrapper supports the following options:</p>
+
+<ul>
+<li><code>OutputType.X11</code> for charts that are opened in a new window</li>
+<li><code>OutputType.Png</code> for saving charts to a PNG file.</li>
+<li><code>OutputType.Eps</code> for saving charts to an EPS file.</li>
+</ul>
 </div>
   <h3>Union Cases</h3>
   <table class="table table-bordered member-list">
@@ -48,55 +58,58 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '42', 42)" onmouseover="showTip(event, '42', 42)">
+          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
             Eps(string)
           </code>
-          <div class="tip" id="42">
+          <div class="tip" id="18">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L183-183" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L218-218" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Saves charts to a specified EPS file</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '43', 43)" onmouseover="showTip(event, '43', 43)">
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
             Png(string)
           </code>
-          <div class="tip" id="43">
+          <div class="tip" id="19">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L182-182" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L216-216" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Saves charts to a specified PNG file</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '44', 44)" onmouseover="showTip(event, '44', 44)">
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
             X11
           </code>
-          <div class="tip" id="44">
+          <div class="tip" id="20">
             <strong>Signature:</strong> <br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L181-181" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L214-214" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Creates charts in a new window</p>
+
         </td>
       </tr>
     </tbody>
@@ -104,7 +117,7 @@
 
         </div>
         <div class="span3">
-          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="/FnuPlot/img/logo.png" alt="FnuPlot" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">FnuPlot</li>
             <li><a href="/FnuPlot/index.html">Home page</a></li>
@@ -126,6 +139,12 @@
               </ul>
             </li>
             <li><a href="/FnuPlot/worldbank.html">Analyising WorldBank data</a>
+              <ul class="nav nav-list">
+                <li><a href="/FnuPlot/worldbank.html#Downloading-data-from-the-WorldBank">Using WorldBank REST API</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Processing-downloaded-data">Processing downloaded data</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Visualizing-data-with-gnuplot">Visualizing with gnuplot</a></li>
+              </ul>
+            </li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>

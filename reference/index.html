@@ -24,7 +24,10 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li><a href="http://fsharp.org">fsharp.org</a></li>
-          <li><a href="http://github.com/fsprojects/FnuPlot">github page</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle"><img height="16" width="16" src="http://fsharp.org/images/thumbs/Deedle.png" /> Deedle</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Charting.png" /> F# Charting</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.png" /> F# Data</a></li>
+          <li><a href="http://fsprojects.github.io/FSharp.Data.Toolbox"><img height="16" width="16" src="http://fsharp.org/images/thumbs/FSharp.Data.Toolbox.png" /> F# Data Toolbox</a></li>
         </ul>
         <h3 class="muted"><a href="/FnuPlot/index.html">FnuPlot</a></h3>
       </div>
@@ -46,62 +49,75 @@
           <td class="type-name">
             <a href="fnuplot-data.html">Data</a>
           </td>
-          <td class="xmldoc"><p>Data that are used  as an argument to the 'Series' type
-For most of the types, we use 'Data', 'Function' is used
-when specifying function as a string</p>
+          <td class="xmldoc"><p>Data that is passed as an argument to the <code>Series</code> type. For most of the types, 
+we use one of the <code>Data</code> cases; <code>Function</code> is used when specifying function as a string.
+You do not need to create <code>Data</code> values directly. Instead, use <code>Series.XY</code>, <code>Series.Line</code>,
+<code>Series.TimeY</code>, <code>Series.Function</code> and other.</p>
 </td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-fillstyle.html">FillStyle</a>
           </td>
-          <td class="xmldoc"><p>Represents possible fill styles of a plot</p>
+          <td class="xmldoc"><p>Represents possible fill styles of a plot. A plot can be filled using
+a solid fill or using a specified pre-defined pattern (represented by 
+an integer that <code>gnuplot</code> understands)</p>
 </td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-gnuplot.html">GnuPlot</a>
           </td>
-          <td class="xmldoc"><p>Provides a wrapper for calling gnuplot from F#. Plots are drawn using
-the 'Plot' function and can be created using 'Series' type. For example:</p>
+          <td class="xmldoc"><p>The main type of the library. It provides a wrapper for calling gnuplot from F#. 
+Plots are drawn using the <code>Plot</code> function and can be created using the <code>Series</code> type. 
+For example:</p>
 
-<p>// Plot a function specified as a string
-  gp.Plot("sin(x)")</p>
+<pre><code>// Create gnuplot process
+let gp = GnuPlot()
 
-<p>// Create a simple line plot
-  gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])</p>
+// Plot a function specified as a string
+gp.Plot("sin(x)")
 
-<p>// Create a histogram plot drawn using blue color 
-  gp.Plot(Series.Histogram(lineColor=Color.Blue, data=[2.0; 1.0; 2.0; 5.0]))</p>
-</td>
-        </tr>
-        <tr>
-          <td class="type-name">
-            <a href="fnuplot-icommand.html">ICommand</a>
-          </td>
-          <td class="xmldoc"><p>Represents an abstract command that sets some property
-of the plot (and allows undoing the change)</p>
+// Create a simple line plot
+gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])   
+
+// Create a histogram plot drawn using blue color 
+gp.Plot(Series.Histogram(lineColor=Color.Blue, data=[2.0; 1.0; 2.0; 5.0]))
+</code></pre>
 </td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-output.html">Output</a>
           </td>
-          <td class="xmldoc"></td>
+          <td class="xmldoc"><p>The type can be used to specify output type for <code>gnuplot</code>. The type
+combines a value of <code>OutputType</code> with additional parameters such as fonts.
+For example, to create a PNG, you can use:</p>
+
+<pre><code>gp.Set(output = Output(Png("/temp/test.png")))
+</code></pre>
+</td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-outputtype.html">OutputType</a>
           </td>
-          <td class="xmldoc"><p>Various outputs that can be specified to gnuplot</p>
+          <td class="xmldoc"><p>Various output types that can be specified to gnuplot. Currently, the
+wrapper supports the following options:</p>
+
+<ul>
+<li><code>OutputType.X11</code> for charts that are opened in a new window</li>
+<li><code>OutputType.Png</code> for saving charts to a PNG file.</li>
+<li><code>OutputType.Eps</code> for saving charts to an EPS file.</li>
+</ul>
 </td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-series.html">Series</a>
           </td>
-          <td class="xmldoc"><p>Represents a series of data for the 'plot' function
-The type can be constructed directly (by setting 'plot' parameter
+          <td class="xmldoc"><p>Represents a series of data for the <code>gp.Plot</code> function
+The type can be constructed directly (by setting the <code>plot</code> parameter
 to the desired series type) or indirectly using static
 members such as 'Series.Histogram'</p>
 </td>
@@ -117,20 +133,23 @@ style globally)</p>
         </tr>
         <tr>
           <td class="type-name">
-            <a href="fnuplot-timefmtx.html">TimeFmtX</a>
+            <a href="fnuplot-timeformatx.html">TimeFormatX</a>
           </td>
           <td class="xmldoc"><p>Used to specify datetime format for the x and y axes, if they contain time data.
-"format" is a gnuplot time format; see <a href="http://gnuplot.sourceforge.net/docs_4.2/node274.html">http://gnuplot.sourceforge.net/docs_4.2/node274.html</a></p>
+The parameter <code>format</code> is a gnuplot time format; for more information
+<a href="http://gnuplot.sourceforge.net/docs_4.2/node274.html">refer to the gnuplot documentation</a>.</p>
 </td>
         </tr>
         <tr>
           <td class="type-name">
             <a href="fnuplot-titles.html">Titles</a>
           </td>
-          <td class="xmldoc"><p>Used to specify titles for the x and y axes. For example:</p>
+          <td class="xmldoc"><p>Used to specify titles for the X and Y axes. In addition to the text for the labels,
+you can also specify the rotation of the labels. For example:</p>
 
-<p>// specify rotated titles for x axis
-  Titles(x=["one"; "two"], xrotate=-70)</p>
+<pre><code>// specify rotated titles for x axis
+Titles(x=["one"; "two"], xrotate=-70)
+</code></pre>
 </td>
         </tr>
     </tbody>
@@ -142,37 +161,22 @@ style globally)</p>
     <tbody>
         <tr>
           <td class="module-name">
-            <a href="fnuplot-internal.html">Internal</a>
-          </td>
-          <td class="xmldoc"></td>
-        </tr>
-        <tr>
-          <td class="module-name">
-            <a href="fnuplot-internalformat.html">InternalFormat</a>
-          </td>
-          <td class="xmldoc"><p>Module that contains formatting of various gnuplot arguments</p>
-</td>
-        </tr>
-        <tr>
-          <td class="module-name">
-            <a href="fnuplot-internalutils.html">InternalUtils</a>
-          </td>
-          <td class="xmldoc"><p>Utilities for formatting values and for working
-with commands (this also contains workarounds for Mono bugs)</p>
-</td>
-        </tr>
-        <tr>
-          <td class="module-name">
             <a href="fnuplot-ranges.html">Ranges</a>
           </td>
-          <td class="xmldoc"><p>Module with values for elegant construction of ranges</p>
+          <td class="xmldoc"><p>Module with values for elegant construction of ranges. This module is automatically
+opened, so you do not need to open it explicitly. This lets you specify ranges using
+the following notation:</p>
+
+<pre><code>// Specify the upper bound on X axis
+RangeX.[ .. 10.0]
+
+// Specify the upper bound on Y axis
+RangeY.[ .. 10.0]
+
+// Specify both X and Y axes
+Range.[-10.0 .. , 2.0 .. 8.0]
+</code></pre>
 </td>
-        </tr>
-        <tr>
-          <td class="module-name">
-            <a href="fnuplot-timeformatting.html">timeFormatting</a>
-          </td>
-          <td class="xmldoc"></td>
         </tr>
     </tbody>
   </table>
@@ -181,7 +185,7 @@ with commands (this also contains workarounds for Mono bugs)</p>
 
         </div>
         <div class="span3">
-          <img src="/FnuPlot/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="/FnuPlot/img/logo.png" alt="FnuPlot" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">FnuPlot</li>
             <li><a href="/FnuPlot/index.html">Home page</a></li>
@@ -203,6 +207,12 @@ with commands (this also contains workarounds for Mono bugs)</p>
               </ul>
             </li>
             <li><a href="/FnuPlot/worldbank.html">Analyising WorldBank data</a>
+              <ul class="nav nav-list">
+                <li><a href="/FnuPlot/worldbank.html#Downloading-data-from-the-WorldBank">Using WorldBank REST API</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Processing-downloaded-data">Processing downloaded data</a></li>
+                <li><a href="/FnuPlot/worldbank.html#Visualizing-data-with-gnuplot">Visualizing with gnuplot</a></li>
+              </ul>
+            </li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/FnuPlot/reference/index.html">API Reference</a></li>
