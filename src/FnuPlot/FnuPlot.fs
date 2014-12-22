@@ -11,12 +11,17 @@ open System.Diagnostics
 // Various basic types for representing filling, ranges and for formatting
 // ----------------------------------------------------------------------------
 
-/// Represents possible fill styles of a plot
+/// Represents possible fill styles of a plot. A plot can be filled using
+/// a solid fill or using a specified pre-defined pattern (represented by 
+/// an integer that `gnuplot` understands)
 type FillStyle = 
+  /// Fill the plot with a solid fill
   | Solid
+  /// Fill the plot with a pre-defined gnuplot pattern
   | Pattern of int
 
 
+/// [omit]
 /// Represents an abstract command that sets some property
 /// of the plot (and allows undoing the change)
 type ICommand = 
@@ -24,36 +29,29 @@ type ICommand =
   abstract Cleanup : string
 
 
-/// Utilities for formatting values and for working
-/// with commands (this also contains workarounds for Mono bugs)
+/// [omit]
+/// Utilities for formatting values and for working with commands
 module InternalUtils = 
-  // Some generic functions are not compiled correcty
-  // on Mono when using F# Interactive, so we 
-  type C<'T> = 
-    static member FormatArg(f:'T -> string, a:option<'T>) =
-      match a with 
-      | None -> ""
-      | Some(v) -> (f v)
-      
-  type D<'T when 'T :> ICommand> = 
-    static member CommandList(opt:option<'T>) =
-      match opt with 
-      | Some(cmd) -> [cmd :> ICommand]
-      | None -> []
-
   /// Formats a value of type option<'a> as a string
   /// using the emtpy string if the value is missing
-  let formatArg f a = C<_>.FormatArg(f, a)
-  
+  let formatArg (f:'T -> string) (a:option<'T>) =
+    match a with 
+    | None -> ""
+    | Some(v) -> (f v)
+      
+  /// Turns an option value containing some class implementing
+  /// ICommand into a list containing exaclty ICommand values
+  let commandList (opt:option<'T>) =
+    match opt with 
+    | Some(cmd) -> [cmd :> ICommand]
+    | None -> []
+
   /// Formats a value of type option<float>
   let formatNum = formatArg (sprintf "%f")
   
-  /// Turns an option value containing some class implementing
-  /// ICommand into a list containing exaclty ICommand values
-  let commandList opt = D<_>.CommandList(opt)
-
 open InternalUtils
 
+/// [omit]
 module Internal = 
   /// Type that represents a range for a plot (this type is not
   /// intended to be constructed directly - use 'Range.[ ... ]` instead)
@@ -80,19 +78,37 @@ module Internal =
     member x.GetSlice(fy, ty) = 
       Range(yspec = sprintf "[%s:%s]" (formatNum fy) (formatNum ty))
 
-/// Module with values for elegant construction of ranges
+/// Module with values for elegant construction of ranges. This module is automatically
+/// opened, so you do not need to open it explicitly. This lets you specify ranges using
+/// the following notation:
+///
+///     // Specify the upper bound on X axis
+///     RangeX.[ .. 10.0]
+///
+///     // Specify the upper bound on Y axis
+///     RangeY.[ .. 10.0]
+///
+///     // Specify both X and Y axes
+///     Range.[-10.0 .. , 2.0 .. 8.0]
+///
 [<AutoOpen>]
 module Ranges =
   open Internal
   
   /// Ranges can be constructed using the slicing syntax.
-  /// For example 'Range.[-10.0 .. , 2.0 .. 8.0]
+  /// For example:
+  ///
+  ///     Range.[-10.0 .. , 2.0 .. 8.0]
   let Range = RangeImplXY()
   /// Ranges can be constructed using the slicing syntax.
-  /// For example 'RangeX.[ .. 10.0]
+  /// For example:
+  ///
+  ///     RangeX.[ .. 10.0]
   let RangeX = RangeImplX()
   /// Ranges can be constructed using the slicing syntax.
-  /// For example 'RangeY.[ .. 10.0]
+  /// For example:
+  ///
+  ///     RangeY.[ .. 10.0]
   let RangeY = RangeImplY()
 
 // ----------------------------------------------------------------------------
@@ -100,6 +116,7 @@ module Ranges =
 // of series (Lines, Histogram, ... other options TBD.)
 // ----------------------------------------------------------------------------
 
+/// [omit]
 /// Module that contains formatting of various gnuplot arguments
 module InternalFormat =   
   let formatNumArg s = formatArg (sprintf " %s %d" s)
@@ -120,17 +137,24 @@ module InternalFormat =
      
 open InternalFormat
 
-/// Data that are used  as an argument to the 'Series' type
-/// For most of the types, we use 'Data', 'Function' is used
-/// when specifying function as a string
+/// Data that is passed as an argument to the `Series` type. For most of the types, 
+/// we use one of the `Data` cases; `Function` is used when specifying function as a string.
+/// You do not need to create `Data` values directly. Instead, use `Series.XY`, `Series.Line`,
+/// `Series.TimeY`, `Series.Function` and other.
 type Data = 
-  | DataY of float seq //sequence index is x, the data is y.
-  | DataXY of (float*float) seq  //the first element is x, the second is y.
-  | DataTimeY of (DateTime*float) seq //the DateTime determines the position on the x axis. The float is y. This cannot be mixed with the other Data type options such as DataXY.
-  | Function of string //a string holding a function of x in gnuplot format, e.g. "sin(x)". The range of x comes from the other Data series on the plot, or from the optional Range object
+  /// Sequence of numerical values. The index of an item is the X value, the number is the Y value
+  | DataY of float seq 
+  /// Sequence of X and Y coordinates. The first element of the tuple is the X value, the second is the Y value
+  | DataXY of (float*float) seq  
+  /// Sequence of X and Y coordinates where the Y is `DateTime`. The `DateTime` determines the position on the 
+  /// X axis. This cannot be mixed with the other Data type options such as DataXY.
+  | DataTimeY of (DateTime*float) seq 
+  /// A string holding a function of X in the gnuplot format, e.g. `sin(x)`. The range of X comes from the other 
+  /// Data series on the plot, or from the optional `Range` object.
+  | Function of string 
   
-/// Represents a series of data for the 'plot' function
-/// The type can be constructed directly (by setting 'plot' parameter
+/// Represents a series of data for the `gp.Plot` function
+/// The type can be constructed directly (by setting the `plot` parameter
 /// to the desired series type) or indirectly using static
 /// members such as 'Series.Histogram'
 type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) = 
@@ -143,7 +167,9 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
       + (formatNumArg "lw" weight)
       + (formatColor "lc" lineColor) 
       + (formatFill fill)
+  /// Returns the data of the series
   member x.Data = data
+  /// Returns the formatted gnuplot command
   member x.Command = cmd
 
   /// Creates a line data series for a plot  
@@ -152,6 +178,7 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
   /// Creates an XY data series for a plot  
   static member XY(data, ?title, ?lineColor, ?weight) = 
     Series("lines", DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a time-series plot from sequence of `DateTime` and value pairs
   static member TimeY(data, ?title, ?lineColor, ?weight) = 
     Series("lines", DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates a histogram data series for a plot  
@@ -176,12 +203,26 @@ type Style(?fill) =
     member x.Cleanup = "" // not implemented
   
 
-/// Various outputs that can be specified to gnuplot
+/// Various output types that can be specified to gnuplot. Currently, the
+/// wrapper supports the following options:
+///
+///  - `OutputType.X11` for charts that are opened in a new window
+///  - `OutputType.Png` for saving charts to a PNG file.
+///  - `OutputType.Eps` for saving charts to an EPS file.
 type OutputType = 
+  /// Creates charts in a new window
   | X11
+  /// Saves charts to a specified PNG file
   | Png of string
+  /// Saves charts to a specified EPS file
   | Eps of string
 
+/// The type can be used to specify output type for `gnuplot`. The type
+/// combines a value of `OutputType` with additional parameters such as fonts.
+/// For example, to create a PNG, you can use:
+///
+///     gp.Set(output = Output(Png("/temp/test.png")))
+///
 type Output(output:OutputType, ?font) =
   interface ICommand with
     member x.Command = 
@@ -192,10 +233,11 @@ type Output(output:OutputType, ?font) =
       | Eps(s) -> sprintf "set term postscript eps enhanced%s\nset output '%s'" font s
     member x.Cleanup = "set term x11"
 
-/// Used to specify titles for the x and y axes. For example:
+/// Used to specify titles for the X and Y axes. In addition to the text for the labels,
+/// you can also specify the rotation of the labels. For example:
 /// 
-///   // specify rotated titles for x axis
-///   Titles(x=["one"; "two"], xrotate=-70)
+///     // specify rotated titles for x axis
+///     Titles(x=["one"; "two"], xrotate=-70)
 ///
 type Titles(?x, ?xrotate, ?y, ?yrotate) = 
   let cmd =
@@ -212,8 +254,9 @@ type Titles(?x, ?xrotate, ?y, ?yrotate) =
 
 
 /// Used to specify datetime format for the x and y axes, if they contain time data.
-/// "format" is a gnuplot time format; see http://gnuplot.sourceforge.net/docs_4.2/node274.html
-type TimeFmtX(?format) = 
+/// The parameter `format` is a gnuplot time format; for more information
+/// [refer to the gnuplot documentation](http://gnuplot.sourceforge.net/docs_4.2/node274.html).
+type TimeFormatX(?format) = 
   let cmd =
     [ formatTimeForXaxis format , "set xdata"]
     |> List.filter (fun (s, _) -> s <> "")
@@ -223,37 +266,39 @@ type TimeFmtX(?format) =
     member x.Cleanup =
       cmd |> List.map snd |> String.concat "\n"
 
-
-
-//the below two values control Gnuplot's display of DateTimes. They must match.
+/// [omit]
+/// The below two values control Gnuplot's display of DateTimes. They must match.
 [<AutoOpen>]
 module timeFormatting = 
-    let selectedTimeGnuplotFormat = """%d-%b-%Y-%H:%M:%S""" //format that Gnuplot will expect. see http://gnuplot.sourceforge.net/docs_4.2/node274.html
-    let dateTimeToSelectedGnuplotFormat (t:DateTime) = t.ToString("dd-MMM-yyyy-HH:mm:ss") //converts a DateTime to a string in the above format. See http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+  let selectedTimeGnuplotFormat = """%d-%b-%Y-%H:%M:%S""" //format that Gnuplot will expect. see http://gnuplot.sourceforge.net/docs_4.2/node274.html
+  let dateTimeToSelectedGnuplotFormat (t:DateTime) = t.ToString("dd-MMM-yyyy-HH:mm:ss") //converts a DateTime to a string in the above format. See http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
 
 
 // ----------------------------------------------------------------------------
 // The main type that wraps the gnuplot process
 // ----------------------------------------------------------------------------
 
-/// Provides a wrapper for calling gnuplot from F#. Plots are drawn using
-/// the 'Plot' function and can be created using 'Series' type. For example:
+/// The main type of the library. It provides a wrapper for calling gnuplot from F#. 
+/// Plots are drawn using the `Plot` function and can be created using the `Series` type. 
+/// For example:
 ///
-///   // Plot a function specified as a string
-///   gp.Plot("sin(x)")
+///     // Create gnuplot process
+///     let gp = GnuPlot()
 ///
-///   // Create a simple line plot
-///   gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])   
+///     // Plot a function specified as a string
+///     gp.Plot("sin(x)")
 ///
-///   // Create a histogram plot drawn using blue color 
-///   gp.Plot(Series.Histogram(lineColor=Color.Blue, data=[2.0; 1.0; 2.0; 5.0]))
+///     // Create a simple line plot
+///     gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0])   
 ///
-type GnuPlot(?path) =
+///     // Create a histogram plot drawn using blue color 
+///     gp.Plot(Series.Histogram(lineColor=Color.Blue, data=[2.0; 1.0; 2.0; 5.0]))
+///
+type GnuPlot private (actualPath:string) =
   // Start the gnuplot process when the class is created
-  let path = defaultArg path "gnuplot"
   let gp = 
     new ProcessStartInfo
-      (FileName = path, UseShellExecute = false, Arguments = "", 
+      (FileName = actualPath, UseShellExecute = false, Arguments = "", 
        RedirectStandardError = true, CreateNoWindow = true, 
        RedirectStandardOutput = true, RedirectStandardInput = true) 
     |> Process.Start
@@ -279,7 +324,10 @@ type GnuPlot(?path) =
     if DEBUGGING then
         System.Diagnostics.Debug.Print (">>" + str + "\n")
 
-  
+  /// Create a new instance of the `GnuPlot` object. This starts the `gnuplot`
+  /// process in the background. The optional parameter `path` can be used to
+  /// specify `gnuplot` location if it is not available in `PATH`.
+  new(?path:string) = new GnuPlot(actualPath=defaultArg path "gnuplot")
 
   // We want to dipose of the running process when the wrapper is disposed
   // The followign bits implement proper 'disposal' pattern
@@ -287,6 +335,7 @@ type GnuPlot(?path) =
    gp.Kill()  
    if disposing then gp.Dispose()
 
+  /// [omit]
   override x.Finalize() = 
     x.Dispose(false)
     
@@ -315,19 +364,19 @@ type GnuPlot(?path) =
   // --------------------------------------------------------------------------
   // Public members that can be called by the user
   
-  /// Send a string command directly to the gnuplot process
+  /// Send a string command directly to the gnuplot process.
   member x.SendCommand(str) = sendCommand(str)
   
-  /// Set a style or a range of the gnuplot session. For example
+  /// Set a style or a range of the gnuplot session. For example:
   ///
-  ///   // set fill style to a numbered pattern
-  ///   gp.Set(style = Style(fill = Pattern(3)))
+  ///     // set fill style to a numbered pattern
+  ///     gp.Set(style = Style(fill = Pattern(3)))
   ///  
-  ///   // set the X range of the output plot to [-10:]
-  ///   gp.Set(range = RangeX.[-10.0 .. ]
+  ///     // set the X range of the output plot to [-10:]
+  ///     gp.Set(range = RangeX.[-10.0 .. ]
   ///
-  member x.Set(?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles, ?timeFmtX:TimeFmtX) = 
-    let commands = List.concat [ commandList output; commandList style; commandList range; commandList titles ; commandList timeFmtX]
+  member x.Set(?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles, ?TimeFormatX:TimeFormatX) = 
+    let commands = List.concat [ commandList output; commandList style; commandList range; commandList titles ; commandList TimeFormatX]
     for cmd in commands do
       //printfn "Setting:\n%s" cmd.Command
       x.SendCommand(cmd.Command)
@@ -341,8 +390,8 @@ type GnuPlot(?path) =
   /// Draw a plot specified as a string. Range and style can
   /// be specified using optional parameters. For example:
   ///
-  ///  // draw sin(x) function
-  ///  gp.Plot("sin(x)")
+  ///     // draw sin(x) function
+  ///     gp.Plot("sin(x)")
   ///
   member x.Plot(func:string, ?style, ?range, ?output, ?titles) = 
     x.Plot([Series.Function(func)], ?style=style, ?range=range, ?output=output, ?titles=titles)
@@ -350,9 +399,9 @@ type GnuPlot(?path) =
   /// Draw a plot of a single data series. Range and style can 
   /// be specified using optional parameters. For example:
   ///
-  ///   // Create a simple line plot
-  ///   gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0],
-  ///           range = RangeY.[-1.0 ..])   
+  ///     // Create a simple line plot
+  ///     gp.Plot(Series.Lines [2.0; 1.0; 2.0; 5.0],
+  ///             range = RangeY.[-1.0 ..])   
   ///    
   member x.Plot(data:Series, ?style, ?range, ?output, ?titles) = 
     x.Plot([data], ?style=style, ?range=range, ?output=output, ?titles=titles)
@@ -360,18 +409,17 @@ type GnuPlot(?path) =
   /// Draw a plot consisting of multiple data series. Range and 
   /// style can be specified using optional parameters. For example:
   ///
-  ///   // Create a simple line plot
-  ///   gp.Plot
-  ///    [ Series.Lines(title="Lines", data=[2.0; 1.0; 2.0; 5.0])
-  ///      Series.Histogram(fill=Solid, data=[2.0; 1.0; 2.0; 5.0]) ]
+  ///     // Create a simple line plot
+  ///     gp.Plot
+  ///      [ Series.Lines(title="Lines", data=[2.0; 1.0; 2.0; 5.0])
+  ///        Series.Histogram(fill=Solid, data=[2.0; 1.0; 2.0; 5.0]) ]
   ///    
-
   member x.Plot(data:seq<Series>, ?style:Style, ?range:Internal.Range, ?output:Output, ?titles:Titles) = 
     //Set up the plot format. 
     match (Seq.head data).Data with
         | DataTimeY _ ->    //Plotting time ranges requires special setup of the time format
-                            let timeFmt = Some (TimeFmtX(selectedTimeGnuplotFormat))
-                            x.Set(?style=style, ?range=range, ?output=output, ?titles=titles, ?timeFmtX = timeFmt)
+                            let timeFmt = Some (TimeFormatX(selectedTimeGnuplotFormat))
+                            x.Set(?style=style, ?range=range, ?output=output, ?titles=titles, ?TimeFormatX = timeFmt)
         | _ ->  //normal non-time plot
                 x.Set(?style=style, ?range=range, ?output=output, ?titles=titles)
     
