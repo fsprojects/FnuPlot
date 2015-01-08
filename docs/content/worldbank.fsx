@@ -3,7 +3,8 @@
 #I "../../packages/FSharp.Data/lib/net40"
 let pathOpt = 
   [ // MAINTAINERS: Feel free to add other paths where Gnuplot lives on your machine..
-    "C:/Programs/Data/gnuplot/bin/gnuplot.exe" ]
+    "C:/Programs/Data/gnuplot/bin/gnuplot.exe" 
+    "/usr/local/bin/gnuplot" ]
   |> Seq.tryFind System.IO.File.Exists
 let path = defaultArg pathOpt "gnuplot"
 (**
