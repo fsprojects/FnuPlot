@@ -152,21 +152,45 @@ type Data =
   /// A string holding a function of X in the gnuplot format, e.g. `sin(x)`. The range of X comes from the other 
   /// Data series on the plot, or from the optional `Range` object.
   | Function of string 
-  
+
+/// Represents the different types or styles of series.  Roughly corresponds to the gnuPlot 'with lines', 'with points' etc.
+type SeriesType =
+  /// Series will be displayed as lines
+  | Lines
+  /// Series will be displayed as a histogram
+  | Histogram
+  /// Series will be displayed as points
+  | Points
+  /// Series will be displayed as impulses
+  | Impulses
+
 /// Represents a series of data for the `gp.Plot` function
 /// The type can be constructed directly (by setting the `plot` parameter
 /// to the desired series type) or indirectly using static
 /// members such as 'Series.Histogram'
 type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) = 
+  let plotText =
+    match plot with
+      | Lines -> "lines"
+      | Histogram -> "histogram"
+      | Points -> "points"
+      | Impulses -> "impulses"
   let cmd = 
     (match data with 
-     | DataY _ -> " '-' using 1 with " + plot
-     | DataXY _ | DataTimeY _ -> " '-' using 1:2 with " + plot
-     | Function f -> f)
+     | DataY _ -> " '-' using 1 with " + plotText
+     | DataXY _ | DataTimeY _ -> " '-' using 1:2 with " + plotText
+     | Function f -> f + " with " + plotText)
       + (formatTitle title) 
       + (formatNumArg "lw" weight)
       + (formatColor "lc" lineColor) 
       + (formatFill fill)
+
+  static let getType defaultType t =
+    match t with
+      | None -> defaultType
+      | Some ty -> ty
+  static let typeWithLinesAsDefault = getType Lines
+
   /// Returns the data of the series
   member x.Data = data
   /// Returns the formatted gnuplot command
@@ -174,20 +198,19 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
 
   /// Creates a line data series for a plot  
   static member Lines(data, ?title, ?lineColor, ?weight) = 
-    Series("lines", DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+    Series(Lines, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates an XY data series for a plot  
-  static member XY(data, ?title, ?lineColor, ?weight) = 
-    Series("lines", DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  static member XY(data, ?title, ?lineColor, ?weight, ?seriesType) = 
+    Series(typeWithLinesAsDefault seriesType, DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates a time-series plot from sequence of `DateTime` and value pairs
-  static member TimeY(data, ?title, ?lineColor, ?weight) = 
-    Series("lines", DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  static member TimeY(data, ?title, ?lineColor, ?weight, ?seriesType) = 
+    Series(typeWithLinesAsDefault seriesType, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
   /// Creates a histogram data series for a plot  
   static member Histogram(data, ?title, ?lineColor, ?weight, ?fill) = 
-    Series("histogram", DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
+    Series(Histogram, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
   /// Creates a series specified as a function
-  static member Function(func, ?title, ?lineColor, ?weight, ?fill) = 
-    Series("", Function func, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
-
+  static member Function(func, ?title, ?lineColor, ?weight, ?fill, ?seriesType) = 
+    Series(typeWithLinesAsDefault seriesType, Function func, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
 
 /// Represents a style of a plot (can be passed to the Plot method
 /// to set style for single plotting or to the Set method to set the
