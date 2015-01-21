@@ -4,7 +4,8 @@
 let pathOpt = 
   [ // MAINTAINERS: Feel free to add other paths where Gnuplot lives on your machine..
     "C:/Programs/Data/gnuplot/bin/gnuplot.exe" 
-    "/usr/local/bin/gnuplot" ]
+    "/usr/local/bin/gnuplot"
+    "C:/Program Files (x86)/gnuplot/bin/gnuplot.exe"]
   |> Seq.tryFind System.IO.File.Exists
 let path = defaultArg pathOpt "gnuplot"
 (**

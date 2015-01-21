@@ -2,7 +2,8 @@
 #I "../../bin"
 let pathOpt = 
   [ // MAINTAINERS: Feel free to add other paths where Gnuplot lives on your machine..
-    @"C:\Programs\Data\gnuplot\bin\gnuplot.exe" ]
+    @"C:\Programs\Data\gnuplot\bin\gnuplot.exe"
+    @"C:\Program Files (x86)\gnuplot\bin\gnuplot.exe"]
   |> Seq.tryFind System.IO.File.Exists
 let path = defaultArg pathOpt "gnuplot"
 (**
@@ -202,3 +203,20 @@ gp.Plot
 // Reset the configuration back to X11 plots
 gp.Set(output = Output(X11, font="arial"))
 
+(**
+
+Plotting series in different styles
+-----------------------------------
+We can also use the 'seriesType' parameter when creating a new series to specify how it is drawn.
+
+For instance in the demo below we plot one function as 'impulses' and one as 'points'.
+
+*)
+
+[ Series.Function( "besj0(x)*0.12e1", title = "Plot as Impulses", seriesType = Impulses)
+  Series.Function( "(x**besj0(x))-2.5", title = "Plot as Points", seriesType = Points)]
+|> gp.Plot
+
+(**
+<img src="img/tutorial-10.png" alt="Different series style" />
+*)
