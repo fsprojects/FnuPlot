@@ -1,4 +1,7 @@
-Lightweigtht F# wrapper for gnuplot
+[![Issue Stats](http://issuestats.com/github/fsprojects/FnuPlot/badge/issue)](http://issuestats.com/github/fsprojects/FnuPlot)
+[![Issue Stats](http://issuestats.com/github/fsprojects/FnuPlot/badge/pr)](http://issuestats.com/github/fsprojects/FnuPlot)
+
+Lightweigtht F# wrapper for gnuplot - [![NuGet Status](http://img.shields.io/nuget/v/FnuPlot.svg?style=flat)](https://www.nuget.org/packages/FnuPlot/)
 ===================================
 
 FnuPlot is a lightweight wrapper for the [gnuplot](http://www.gnuplot.info/) charting and 
