@@ -45,7 +45,7 @@ The access to gnuplot is managed through the `GnuPlot` type. When creating an in
 can specify the path to the `gnuplot` executable. If you do not pass a path explicitly, then
 FnuPlot assumes that you have gnuplot in your `PATH` variable:
 *)
-let gp_default = new GnuPlot()
+//let gp_default = new GnuPlot()
 let gp = new GnuPlot(path)
 (**
 The `Set` method on the `GnuPlot` object provides a way to configure `gnuplot`. Here, we specify
@@ -87,11 +87,11 @@ Series.Lines
 (**
 <img src="img/tutorial-3.png" alt="Line series with configuration" />
 
-When creating a line series from data points consisting of both X and Y values, you can use
-the `Series.XY` method (note that FnuPlot also supports time-series data sets, which are 
+When creating a line series from data points consisting of both X and Y values, you can also use
+the `Series.Lines` method with a series of that type (note that FnuPlot also supports time-series data sets, which are 
 discussed below).
 *)
-Series.XY( [0.0,1.0; 0.2,2.0; 2.0,1.5; 2.1,3.0] , title = "Some xy plot")
+Series.Lines( [0.0,1.0; 0.2,2.0; 2.0,1.5; 2.1,3.0] , title = "Some xy plot")
 |> gp.Plot
 (**
 <img src="img/tutorial-4.png" alt="Line series with X and Y values" />
@@ -111,15 +111,15 @@ Series.Histogram
 (**
 <img src="img/tutorial-5.png" alt="Histogram" />
 
-As already mentioned, FnuPlot also supports time-series charts. These can be created using the
-`Series.TimeY` method. This method takes the values as pairs of `DateTime` and `float`:
+As already mentioned, FnuPlot also supports time-series charts. These can be created by passing
+values as pairs of `DateTime` and `float`:
 *)
 let values =
   [ DateTime(2014,1,1), 1.0
     DateTime(2014,1,5), 3.0
     DateTime(2014,2,1), 1.5 ]
 
-Series.TimeY(values, title = "Some time series" )
+Series.Lines(values, title = "Some time series" )
 |> gp.Plot
 (**
 <img src="img/tutorial-6.png" alt="Time-series" />
@@ -135,7 +135,7 @@ In that case, gnuplot will render multiple series into a single chart.
 The following (slightly silly) demo combines the `sin(x*3)+3)` function specified as
 a string together with line chart and histogram created from values:
 *)
-[ Series.Function
+[ Series.Lines
     ( "sin(x*3) + 3", title = "Sinus", 
       lineColor = Color.Goldenrod, weight = 3)
   Series.Lines
@@ -205,18 +205,15 @@ gp.Set(output = Output(X11, font="arial"))
 
 (**
 
-Plotting series in different styles
------------------------------------
-We can also use the 'seriesType' parameter when creating a new series to specify how it is drawn.
-
-For instance in the demo below we plot one function as 'impulses' and one as 'points'.
-
+Impulses and Points
+-------------------
+Using the `Series.Impulses` and `Series.Points` methods we can plot impulses and points.
 *)
 
-[ Series.Function( "besj0(x)*0.12e1", title = "Plot as Impulses", seriesType = Impulses)
-  Series.Function( "(x**besj0(x))-2.5", title = "Plot as Points", seriesType = Points)]
+[ Series.Impulses( "besj0(x)*0.12e1", title = "Plot as Impulses")
+  Series.Points( "(x**besj0(x))-2.5", title = "Plot as Points")]
 |> gp.Plot
 
 (**
-<img src="img/tutorial-10.png" alt="Different series style" />
+<img src="img/tutorial-10.png" alt="Impulses and Points" />
 *)
