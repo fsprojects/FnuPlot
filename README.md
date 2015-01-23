@@ -10,9 +10,10 @@ do not have to start and control the process; you can use the `GnuPlot` type and
 `SendCommand`. Second, FnuPlot implements a simple domain-specific language for building a 
 number of common chart types.
 
+[![Build Status](https://travis-ci.org/fsprojects/FnuPlot.png?branch=master)](https://travis-ci.org/fsprojects/FnuPlot)
+[![NuGet Status](http://img.shields.io/nuget/v/FnuPlot.svg?style=flat)](https://www.nuget.org/packages/FnuPlot/)
 [![Issue Stats](http://issuestats.com/github/fsprojects/FnuPlot/badge/issue)](http://issuestats.com/github/fsprojects/FnuPlot)
 [![Issue Stats](http://issuestats.com/github/fsprojects/FnuPlot/badge/pr)](http://issuestats.com/github/fsprojects/FnuPlot)
-[![NuGet Status](http://img.shields.io/nuget/v/FnuPlot.svg?style=flat)](https://www.nuget.org/packages/FnuPlot/)
 
 More information
 ----------------
