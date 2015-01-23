@@ -28,3 +28,11 @@ For more information about FnuPlot, please refer to the FnuPlot documentation:
  * [API Reference](http://fsprojects.github.io/FnuPlot/reference/index.html) contains automatically generated documentation for all types, 
    modules and functions in the library. This includes additional brief samples on using most of the
    functions.
+
+Maintainer(s)
+----------------
+
+- [@LukeAllen](https://github.com/LukeAllen)
+- [@tpetricek](https://github.com/tpetricek)
+
+The default maintainer account for projects under "fsprojects" is [@fsgit](https://github.com/fsgit) - F# Community Project Incubation Space (repo management)
