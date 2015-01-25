@@ -45,7 +45,7 @@ The access to gnuplot is managed through the `GnuPlot` type. When creating an in
 can specify the path to the `gnuplot` executable. If you do not pass a path explicitly, then
 FnuPlot assumes that you have gnuplot in your `PATH` variable:
 *)
-//let gp_default = new GnuPlot()
+let gp_default = new GnuPlot()
 let gp = new GnuPlot(path)
 (**
 The `Set` method on the `GnuPlot` object provides a way to configure `gnuplot`. Here, we specify
