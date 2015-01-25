@@ -185,32 +185,53 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
       + (formatColor "lc" lineColor) 
       + (formatFill fill)
 
-  static let getType defaultType t =
-    match t with
-      | None -> defaultType
-      | Some ty -> ty
-  static let typeWithLinesAsDefault = getType Lines
-
   /// Returns the data of the series
   member x.Data = data
   /// Returns the formatted gnuplot command
   member x.Command = cmd
 
-  /// Creates a line data series for a plot  
+  /// Creates a line data series for a plot of y values
   static member Lines(data, ?title, ?lineColor, ?weight) = 
     Series(Lines, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
-  /// Creates an XY data series for a plot  
-  static member XY(data, ?title, ?lineColor, ?weight, ?seriesType) = 
-    Series(typeWithLinesAsDefault seriesType, DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
-  /// Creates a time-series plot from sequence of `DateTime` and value pairs
-  static member TimeY(data, ?title, ?lineColor, ?weight, ?seriesType) = 
-    Series(typeWithLinesAsDefault seriesType, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a line data series for a plot of xy values
+  static member Lines(data, ?title, ?lineColor, ?weight) = 
+    Series(Lines, DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a line data series for a function
+  static member Lines(data, ?title, ?lineColor, ?weight) = 
+    Series(Lines, Function data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a line data series for a plot of DateTime and y values
+  static member Lines(data, ?title, ?lineColor, ?weight) = 
+    Series(Lines, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+
+  /// Creates a points data series for a plot of y values
+  static member Points(data, ?title, ?lineColor, ?weight) = 
+    Series(Points, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a points data series for a plot of xy values
+  static member Points(data, ?title, ?lineColor, ?weight) = 
+    Series(Points, DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a points data series for a function
+  static member Points(data, ?title, ?lineColor, ?weight) = 
+    Series(Points, Function data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates a points data series for a plot of DateTime and y values
+  static member Points(data, ?title, ?lineColor, ?weight) = 
+    Series(Points, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+
+  /// Creates an impulse data series for a plot of y values
+  static member Impulses(data, ?title, ?lineColor, ?weight) = 
+    Series(Impulses, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates an impulse data series for a plot of xy values
+  static member Impulses(data, ?title, ?lineColor, ?weight) = 
+    Series(Impulses, DataXY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates an impulse data series for a function
+  static member Impulses(data, ?title, ?lineColor, ?weight) = 
+    Series(Impulses, Function data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+  /// Creates an impulse data series for a plot of DateTime and y values
+  static member Impulses(data, ?title, ?lineColor, ?weight) = 
+    Series(Impulses, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
+
   /// Creates a histogram data series for a plot  
   static member Histogram(data, ?title, ?lineColor, ?weight, ?fill) = 
     Series(Histogram, DataY data, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
-  /// Creates a series specified as a function
-  static member Function(func, ?title, ?lineColor, ?weight, ?fill, ?seriesType) = 
-    Series(typeWithLinesAsDefault seriesType, Function func, ?title=title, ?lineColor=lineColor, ?weight=weight, ?fill=fill)
 
 /// Represents a style of a plot (can be passed to the Plot method
 /// to set style for single plotting or to the Set method to set the
@@ -417,7 +438,7 @@ type GnuPlot private (actualPath:string) =
   ///     gp.Plot("sin(x)")
   ///
   member x.Plot(func:string, ?style, ?range, ?output, ?titles) = 
-    x.Plot([Series.Function(func)], ?style=style, ?range=range, ?output=output, ?titles=titles)
+    x.Plot([Series.Lines(func)], ?style=style, ?range=range, ?output=output, ?titles=titles)
 
   /// Draw a plot of a single data series. Range and style can 
   /// be specified using optional parameters. For example:
