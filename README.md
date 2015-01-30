@@ -24,7 +24,7 @@ For more information about FnuPlot, please refer to the FnuPlot documentation:
     with examples, API reference and more information.
 
  * Read the [Getting started tutorial](http://fsprojects.github.io/FnuPlot/tutorial.html), which contains more detailed description of 
-   different charts supported by the library. The [Visualizng population using WorldBank](http://fsprojects.github.io/FnuPlot/worldbank.html)
+   different charts supported by the library. The [Visualizing population using WorldBank](http://fsprojects.github.io/FnuPlot/worldbank.html)
    tutorial shows how to create the chart above.
 
  * [API Reference](http://fsprojects.github.io/FnuPlot/reference/index.html) contains automatically generated documentation for all types, 
