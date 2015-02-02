@@ -9,7 +9,7 @@ let pathOpt =
   |> Seq.tryFind System.IO.File.Exists
 let path = defaultArg pathOpt "gnuplot"
 (**
-Visualizng population using WorldBank
+Visualizing population using WorldBank
 =====================================
 
 In this walkthrough, we look at a larger example of data analysis that uses FnuPlot to

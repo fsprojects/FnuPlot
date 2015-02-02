@@ -73,7 +73,7 @@ The FnuPlot library comes with a documentation that is automatically generated f
 and run it interactively.
 
  * Read the [Getting started tutorial](tutorial.html), which contains more detailed description of 
-   different charts supported by the library. The [Visualizng population using WorldBank](worldbank.html)
+   different charts supported by the library. The [Visualizing population using WorldBank](worldbank.html)
    tutorial shows how to create the chart above.
 
  * [API Reference](reference/index.html) contains automatically generated documentation for all types, 
