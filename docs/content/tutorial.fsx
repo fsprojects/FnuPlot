@@ -21,20 +21,19 @@ number of common chart types.
 
 Installing and configuring FnuPlot
 ----------------------------------
+ * [Install gnuplot](http://sourceforge.net/projects/gnuplot/files/) if you haven't already.
 
-FnuPlot is [available on NuGet](http://nuget.org/packages/FnuPlot) and you can use NuGet
-to reference it. However, all of the FnuPlot functionality is currently implemented in a
-single file, and so you can also copy the `FnuPlot.fs` file to your project. The recommended
-way to do this is to use [Paket](http://fsprojects.github.io/Paket/) for managing your
-references and use [GitHub reference](http://fsprojects.github.io/Paket/github-dependencies.html)
-specified in your `paket.dependencies` file as follows:
+ * The library is available as [FnuPlot on NuGet](https://www.nuget.org/packages/FnuPlot). To get the
+   code also, [get the code from GitHub](https://github.com/fsprojects/FnuPlot/).
 
-    [lang=text]
-    github fsprojects/FnuPlot src/FnuPlot/FnuPlot.fs
+ * Alternatively: Because FnuPlot is implemented in a single source file, you can instead just copy the 
+   `FnuPlot.fs` file into your project. A robust way to do this is to use [Paket](http://fsprojects.github.io/Paket/) 
+   for managing your references and use [GitHub reference](http://fsprojects.github.io/Paket/github-dependencies.html)
+   specified in your `paket.dependencies` file using `github fsprojects/FnuPlot src/FnuPlot/FnuPlot.fs`.
 
-Once you have the reference, you can either add `FnuPlot.dll` to your reference (when using
-a compiled project) or use `#load "FnuPlot.fs"` to load the FnuPlot file obtained using 
-Paket. Alternatively, you can use `#r` if you're referencing FnuPlot using NuGet package:
+ * Once you have the reference, you can either add `FnuPlot.dll` to your reference (when using
+   a compiled project) or use `#load "FnuPlot.fs"` to load the FnuPlot file obtained using 
+   Paket. Alternatively, you can use `#r` if you're referencing FnuPlot using NuGet package:
 *)
 #r "FnuPlot.dll"
 open FnuPlot
@@ -63,7 +62,7 @@ series (which can also use different chart types).
 
 The following shows how to call `Plot` with a function specified as a string:
 *)
-gp.Plot("sin(x)")
+gp.Plot(Series.Lines "sin(x)")
 (**
 <img src="img/tutorial-1.png" alt="Sin function" />
 

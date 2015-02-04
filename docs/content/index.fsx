@@ -58,7 +58,7 @@ How to get FnuPlot
 ------------------
 
  * The library is available as [FnuPlot on NuGet](https://www.nuget.org/packages/FnuPlot). To get the
-   can also [get the code from GitHub](https://github.com/fsprojects/FnuPlot/).
+   code also, [get the code from GitHub](https://github.com/fsprojects/FnuPlot/).
 
  * All of the FnuPlot functionality is currently implemented in a single file, and so you can also copy the 
    `FnuPlot.fs` file to your project. The recommended way to do this is to use [Paket](http://fsprojects.github.io/Paket/) 

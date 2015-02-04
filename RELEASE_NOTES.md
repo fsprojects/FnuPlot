@@ -1,3 +1,7 @@
+#### 0.1.0-beta - February 3, 2015
+* Replaced Series.Lines, Series.XY, Series.TimeY, and Series.Function with a single overloaded Series.Lines which accepts any of the above data types. **Important note:** This will break code which used the old constructors. To fix your legacy code, simply replace all usages of the above constructors with Series.Lines
+* Added Series.Points and Series.Impulses constructors. These work exactly like Series.Lines, but instead of plotting a continuous line they plot the datapoints as isolated points or isolated thin bars, respectively.
+
 #### 0.0.5-beta - December 22, 2014
 * Adding more documentation, minor code refactoring
 
