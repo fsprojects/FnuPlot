@@ -139,8 +139,8 @@ open InternalFormat
 
 /// Data that is passed as an argument to the `Series` type. For most of the types, 
 /// we use one of the `Data` cases; `Function` is used when specifying function as a string.
-/// You do not need to create `Data` values directly. Instead, use `Series.XY`, `Series.Line`,
-/// `Series.TimeY`, `Series.Function` and other.
+/// You do not need to create `Data` values directly. Instead, use `Series.Line`,
+/// `Series.Points`, etc. with the appropriate input type.
 type Data = 
   /// Sequence of numerical values. The index of an item is the X value, the number is the Y value
   | DataY of float seq 
@@ -157,7 +157,7 @@ type Data =
 type SeriesType =
   /// Series will be displayed as lines
   | Lines
-  /// Series will be displayed as a histogram
+  /// Series will be displayed as a histogram.
   | Histogram
   /// Series will be displayed as points
   | Points
@@ -199,7 +199,7 @@ type Series(plot, data, ?title, ?lineColor, ?weight, ?fill) =
   /// Creates a line data series for a function
   static member Lines(data, ?title, ?lineColor, ?weight) = 
     Series(Lines, Function data, ?title=title, ?lineColor=lineColor, ?weight=weight)
-  /// Creates a line data series for a plot of DateTime and y values
+  /// Creates a line data series for a plot of DateTime and y values.
   static member Lines(data, ?title, ?lineColor, ?weight) = 
     Series(Lines, DataTimeY data, ?title=title, ?lineColor=lineColor, ?weight=weight)
 
