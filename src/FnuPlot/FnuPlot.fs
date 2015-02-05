@@ -146,7 +146,7 @@ type Data =
   | DataY of float seq 
   /// Sequence of X and Y coordinates. The first element of the tuple is the X value, the second is the Y value
   | DataXY of (float*float) seq  
-  /// Sequence of X and Y coordinates where the Y is `DateTime`. The `DateTime` determines the position on the 
+  /// Sequence of X and Y coordinates where the X is `DateTime`. The `DateTime` determines the position on the 
   /// X axis. This cannot be mixed with the other Data type options such as DataXY.
   | DataTimeY of (DateTime*float) seq 
   /// A string holding a function of X in the gnuplot format, e.g. `sin(x)`. The range of X comes from the other 
