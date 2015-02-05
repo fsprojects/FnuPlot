@@ -111,7 +111,7 @@ resulting chart looks as follows:</p>
 
 <ul>
 <li><p>The library is available as <a href="https://www.nuget.org/packages/FnuPlot">FnuPlot on NuGet</a>. To get the
-can also <a href="https://github.com/fsprojects/FnuPlot/">get the code from GitHub</a>.</p></li>
+code also, <a href="https://github.com/fsprojects/FnuPlot/">get the code from GitHub</a>.</p></li>
 <li><p>All of the FnuPlot functionality is currently implemented in a single file, and so you can also copy the 
 <code>FnuPlot.fs</code> file to your project. The recommended way to do this is to use <a href="http://fsprojects.github.io/Paket/">Paket</a>
 for managing your references and use <a href="http://fsprojects.github.io/Paket/github-dependencies.html">GitHub reference</a>
@@ -126,7 +126,7 @@ and run it interactively.</p>
 
 <ul>
 <li><p>Read the <a href="tutorial.html">Getting started tutorial</a>, which contains more detailed description of 
-different charts supported by the library. The <a href="worldbank.html">Visualizng population using WorldBank</a>
+different charts supported by the library. The <a href="worldbank.html">Visualizing population using WorldBank</a>
 tutorial shows how to create the chart above.</p></li>
 <li><p><a href="reference/index.html">API Reference</a> contains automatically generated documentation for all types, 
 modules and functions in the library. This includes additional brief samples on using most of the
@@ -157,7 +157,7 @@ redistribution for both commercial and non-commercial purposes. For more informa
 <div class="tip" id="fs12">val year : obj</div>
 <div class="tip" id="fs13">val values : seq&lt;float&gt;</div>
 <div class="tip" id="fs14">val color : System.Drawing.Color</div>
-<div class="tip" id="fs15">Multiple items<br />type Series =<br />&#160;&#160;new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Function : func:string * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle * ?seriesType:SeriesType -&gt; Series<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member TimeY : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?seriesType:SeriesType -&gt; Series<br />&#160;&#160;static member XY : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?seriesType:SeriesType -&gt; Series<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:SeriesType * data:Data * ?title:string * ?lineColor:System.Drawing.Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs15">Multiple items<br />type Series =<br />&#160;&#160;new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:string * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Lines : data:string * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;...<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:SeriesType * data:Data * ?title:string * ?lineColor:System.Drawing.Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
 <div class="tip" id="fs16">static member Series.Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:System.Drawing.Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
 <div class="tip" id="fs17">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
 <div class="tip" id="fs18">member GnuPlot.Plot : data:seq&lt;Series&gt; * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : data:Series * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit<br />member GnuPlot.Plot : func:string * ?style:Style * ?range:Internal.Range * ?output:Output * ?titles:Titles -&gt; unit</div>

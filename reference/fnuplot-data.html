@@ -42,8 +42,8 @@
 <div class="xmldoc">
 <p>Data that is passed as an argument to the <code>Series</code> type. For most of the types, 
 we use one of the <code>Data</code> cases; <code>Function</code> is used when specifying function as a string.
-You do not need to create <code>Data</code> values directly. Instead, use <code>Series.XY</code>, <code>Series.Line</code>,
-<code>Series.TimeY</code>, <code>Series.Function</code> and other.</p>
+You do not need to create <code>Data</code> values directly. Instead, use <code>Series.Line</code>,
+<code>Series.Points</code>, etc. with the appropriate input type.</p>
 </div>
   <h3>Union Cases</h3>
   <table class="table table-bordered member-list">
@@ -66,7 +66,7 @@ You do not need to create <code>Data</code> values directly. Instead, use <code>
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Sequence of X and Y coordinates where the Y is <code>DateTime</code>. The <code>DateTime</code> determines the position on the 
+          <p>Sequence of X and Y coordinates where the X is <code>DateTime</code>. The <code>DateTime</code> determines the position on the 
 X axis. This cannot be mixed with the other Data type options such as DataXY.</p>
 
         </td>

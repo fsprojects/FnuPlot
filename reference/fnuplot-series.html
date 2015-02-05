@@ -88,7 +88,7 @@ members such as 'Series.Histogram'</p>
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L197-197" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L191-191" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -107,7 +107,7 @@ members such as 'Series.Histogram'</p>
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L195-195" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L189-189" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -127,33 +127,14 @@ members such as 'Series.Histogram'</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '24', 24)" onmouseover="showTip(event, '24', 24)">
-            Function(...)
-          </code>
-          <div class="tip" id="24">
-            <strong>Signature:</strong> (func:string * title:string option * lineColor:Color option * weight:int option * fill:FillStyle option * seriesType:SeriesType option) -&gt; Series<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L212-212" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          <p>Creates a series specified as a function</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
             Histogram(...)
           </code>
-          <div class="tip" id="25">
+          <div class="tip" id="24">
             <strong>Signature:</strong> (data:seq&lt;float&gt; * title:string option * lineColor:Color option * weight:int option * fill:FillStyle option) -&gt; Series<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L209-209" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L233-233" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -164,19 +145,38 @@ members such as 'Series.Histogram'</p>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
-            Lines(data, title, lineColor, weight)
+          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
+            Impulses(data, title, lineColor, weight)
           </code>
-          <div class="tip" id="26">
-            <strong>Signature:</strong> (data:seq&lt;float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+          <div class="tip" id="25">
+            <strong>Signature:</strong> (data:seq&lt;DateTime * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L200-200" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L229-229" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Creates a line data series for a plot</p>
+          <p>Creates an impulse data series for a plot of DateTime and y values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
+            Impulses(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="26">
+            <strong>Signature:</strong> (data:string * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L226-226" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates an impulse data series for a function</p>
 
         </td>
       </tr>
@@ -184,18 +184,18 @@ members such as 'Series.Histogram'</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '27', 27)" onmouseover="showTip(event, '27', 27)">
-            TimeY(...)
+            Impulses(data, title, lineColor, weight)
           </code>
           <div class="tip" id="27">
-            <strong>Signature:</strong> (data:seq&lt;DateTime * float&gt; * title:string option * lineColor:Color option * weight:int option * seriesType:SeriesType option) -&gt; Series<br />
+            <strong>Signature:</strong> (data:seq&lt;float * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L206-206" class="github-link">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L223-223" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Creates a time-series plot from sequence of <code>DateTime</code> and value pairs</p>
+          <p>Creates an impulse data series for a plot of xy values</p>
 
         </td>
       </tr>
@@ -203,10 +203,29 @@ members such as 'Series.Histogram'</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '28', 28)" onmouseover="showTip(event, '28', 28)">
-            XY(...)
+            Impulses(data, title, lineColor, weight)
           </code>
           <div class="tip" id="28">
-            <strong>Signature:</strong> (data:seq&lt;float * float&gt; * title:string option * lineColor:Color option * weight:int option * seriesType:SeriesType option) -&gt; Series<br />
+            <strong>Signature:</strong> (data:seq&lt;float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L220-220" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates an impulse data series for a plot of y values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '29', 29)" onmouseover="showTip(event, '29', 29)">
+            Lines(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="29">
+            <strong>Signature:</strong> (data:seq&lt;DateTime * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -214,7 +233,140 @@ members such as 'Series.Histogram'</p>
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Creates an XY data series for a plot</p>
+          <p>Creates a line data series for a plot of DateTime and y values.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '30', 30)" onmouseover="showTip(event, '30', 30)">
+            Lines(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="30">
+            <strong>Signature:</strong> (data:string * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L200-200" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a line data series for a function</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '31', 31)" onmouseover="showTip(event, '31', 31)">
+            Lines(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="31">
+            <strong>Signature:</strong> (data:seq&lt;float * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L197-197" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a line data series for a plot of xy values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+            Lines(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="32">
+            <strong>Signature:</strong> (data:seq&lt;float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L194-194" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a line data series for a plot of y values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
+            Points(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="33">
+            <strong>Signature:</strong> (data:seq&lt;DateTime * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L216-216" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a points data series for a plot of DateTime and y values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
+            Points(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="34">
+            <strong>Signature:</strong> (data:string * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L213-213" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a points data series for a function</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+            Points(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="35">
+            <strong>Signature:</strong> (data:seq&lt;float * float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L210-210" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a points data series for a plot of xy values</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
+            Points(data, title, lineColor, weight)
+          </code>
+          <div class="tip" id="36">
+            <strong>Signature:</strong> (data:seq&lt;float&gt; * title:string option * lineColor:Color option * weight:int option) -&gt; Series<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/fsprojects/FnuPlot/tree/master/src/FnuPlot/FnuPlot.fs#L207-207" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a points data series for a plot of y values</p>
 
         </td>
       </tr>

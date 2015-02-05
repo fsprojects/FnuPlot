@@ -35,16 +35,11 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h4><a name="0-0-7-beta-January-21-2015" class="anchor" href="#0-0-7-beta-January-21-2015">0.0.7-beta - January 21, 2015</a></h4>
+<h4><a name="0-1-0-beta-February-4-2015" class="anchor" href="#0-1-0-beta-February-4-2015">0.1.0-beta - February 4, 2015</a></h4>
 
 <ul>
-<li>Support displaying series as points or impulses</li>
-</ul>
-
-<h4><a name="0-0-6-beta-January-19-2015" class="anchor" href="#0-0-6-beta-January-19-2015">0.0.6-beta - January 19, 2015</a></h4>
-
-<ul>
-<li>Fixed package logo</li>
+<li>Replaced Series.Lines, Series.XY, Series.TimeY, and Series.Function with a single overloaded Series.Lines which accepts any of the above data types. <strong>Important note:</strong> This will break code which used the old constructors. To fix your legacy code, simply replace all usages of the above constructors with Series.Lines</li>
+<li>Added Series.Points and Series.Impulses constructors. These work exactly like Series.Lines, but instead of plotting a continuous line they plot the datapoints as isolated points or isolated thin bars, respectively.</li>
 </ul>
 
 <h4><a name="0-0-5-beta-December-22-2014" class="anchor" href="#0-0-5-beta-December-22-2014">0.0.5-beta - December 22, 2014</a></h4>

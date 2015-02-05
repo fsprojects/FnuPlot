@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Visualizng population using WorldBank
+    <title>Visualizing population using WorldBank
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="An F# wrapper for the gnuplot charting library"/>
@@ -36,7 +36,7 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1><a name="Visualizng-population-using-WorldBank" class="anchor" href="#Visualizng-population-using-WorldBank">Visualizng population using WorldBank</a></h1>
+<h1><a name="Visualizing-population-using-WorldBank" class="anchor" href="#Visualizing-population-using-WorldBank">Visualizing population using WorldBank</a></h1>
 
 <p>In this walkthrough, we look at a larger example of data analysis that uses FnuPlot to
 visualize the results. We use the <a href="http://data.worldbank.org">WorldBank</a> as the data source
@@ -457,7 +457,7 @@ color for each year):</p>
 <div class="tip" id="fs91">val values : float list</div>
 <div class="tip" id="fs92">val clr : Color</div>
 <div class="tip" id="fs93">val zip : source1:seq&lt;&#39;T1&gt; -&gt; source2:seq&lt;&#39;T2&gt; -&gt; seq&lt;&#39;T1 * &#39;T2&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.zip</div>
-<div class="tip" id="fs94">Multiple items<br />type Series =<br />&#160;&#160;new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Function : func:string * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle * ?seriesType:SeriesType -&gt; Series<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member TimeY : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?seriesType:SeriesType -&gt; Series<br />&#160;&#160;static member XY : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?seriesType:SeriesType -&gt; Series<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
+<div class="tip" id="fs94">Multiple items<br />type Series =<br />&#160;&#160;new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;member Command : string<br />&#160;&#160;member Data : Data<br />&#160;&#160;static member Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:string * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;float * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Impulses : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Lines : data:seq&lt;DateTime * float&gt; * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;static member Lines : data:string * ?title:string * ?lineColor:Color * ?weight:int -&gt; Series<br />&#160;&#160;...<br /><br />Full name: FnuPlot.Series<br /><br />--------------------<br />new : plot:SeriesType * data:Data * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
 <div class="tip" id="fs95">static member Series.Histogram : data:seq&lt;float&gt; * ?title:string * ?lineColor:Color * ?weight:int * ?fill:FillStyle -&gt; Series</div>
 
         </div>
