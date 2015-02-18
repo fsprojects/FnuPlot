@@ -374,7 +374,7 @@ type GnuPlot private (actualPath:string) =
   new(?path:string) = new GnuPlot(actualPath=defaultArg path "gnuplot")
 
   // We want to dipose of the running process when the wrapper is disposed
-  // The followign bits implement proper 'disposal' pattern
+  // The following bits implement proper 'disposal' pattern
   member private x.Dispose(disposing) = 
    gp.Kill()  
    if disposing then gp.Dispose()
