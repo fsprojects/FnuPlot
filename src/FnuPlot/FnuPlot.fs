@@ -256,6 +256,8 @@ type Style(?fill) =
 type OutputType = 
   /// Creates charts in a new window
   | X11
+  /// Creates charts in a new Qt window on OS X
+  | Qt
   /// Saves charts to a specified PNG file
   | Png of string
   /// Saves charts to a specified EPS file
@@ -273,6 +275,7 @@ type Output(output:OutputType, ?font) =
       let font = font |> formatArg (sprintf " font '%s'")
       match output with 
       | X11 -> "set term x11" + font
+      | Qt -> "set terminal qt" + font
       | Png(s) -> sprintf "set term png%s\nset output '%s'" font s
       | Eps(s) -> sprintf "set term postscript eps enhanced%s\nset output '%s'" font s
     member x.Cleanup = "set term x11"
