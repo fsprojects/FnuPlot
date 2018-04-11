@@ -1,12 +1,10 @@
-language: objective-c
+language: csharp
+sudo: required
+dist: trusty
+dotnet : 2.1.4
 
-env:
-  matrix:
-    - MONO_VERSION="3.10.0"
+mono:
+  - 5.0.1
 
-install:
-  - wget "http://download.mono-project.com/archive/${MONO_VERSION}/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
-  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
-
-script: 
+script:
   - ./build.sh All
