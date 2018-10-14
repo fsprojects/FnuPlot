@@ -1,3 +1,5 @@
+*Note: I am no longer maintaining this project or using F#. If someone out there would like take over maintaining it, let me know. -Luke*
+
 Lightweight F# wrapper for gnuplot
 ===================================
 
